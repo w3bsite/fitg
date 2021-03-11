@@ -9,7 +9,7 @@
           </v-banner>
           <br />
           <v-btn block></v-btn>
-          <h1 @click="fil(g.content.rendered)">
+          <h1 @click="reg(g.content.rendered)">
             {{ g.content.rendered }}
             <br />
           </h1>
@@ -24,15 +24,22 @@
 <script>
 export default {
   components: {},
-  created() {},
-  mounted() {
-    this.$nextTick(() => {
-      this.gt();
-    });
+  created() {
+    this.gt();
   },
-  filters: {},
+  mounted() {
+    this.$nextTick(() => {});
+  },
+  filters: {
+    filt(value) {
+      let rg = /([٫۰۱۲۳۴۵۶۷۸۹]*) مگابایت|([٫۰۱۲۳۴۵۶۷۸۹]*) گیگابایت/giu;
+      let x = rg.exec(value);
+      let tip = x[2] ? ` x[2]` : x[1] ? ` x[1]` : "I Dont Know";
+      return tip;
+    },
+  },
   methods: {
-    fil: function (g) {
+    reg: function (g) {
       if (typeof g === "string" && g !== null) {
         let rg = /([٫۰۱۲۳۴۵۶۷۸۹]*) مگابایت|([٫۰۱۲۳۴۵۶۷۸۹]*) گیگابایت/giu;
         let x = rg.exec(g);
@@ -49,22 +56,36 @@ export default {
     gt: function () {
       this.$axios
         .get(this.url)
-        .then((r) => (this.games = r.data))
+        .then((r) => {
+          this.games = r.data;
+          const obj = r.data;
+          for (var i = 0; i < obj.length; i++) {
+            var fname = obj[i].content.rendered;
+            console.log(fname);
+            // do something with fname
+          }
+        })
         .then((e) => (this.er = e));
+    },
+    funfilt(g) {
+      let rg = /([٫۰۱۲۳۴۵۶۷۸۹]*) مگابایت|([٫۰۱۲۳۴۵۶۷۸۹]*) گیگابایت/giu;
+
+      let x = rg.exec(g);
+
+      let tip = x[2] ? x[2] : x[1] ? x[1] : "I Dont Know";
+      console.log(tip);
     },
   },
   data() {
     return {
       games: {},
       er: null,
-      reg: [],
+      jeg: [],
       url: "/https://www.dlfox.com/wp-json/wp/v2/posts",
       data: [],
-      page: "GaMe1333s113",
+      page: "",
       secret: "",
       id: "",
-      fa: "سلام من ۱۰ هستم ۱۰",
-      fox: `"<p><img class="aligncenter" src="https://cdn.dlfox.com/wp-content/uploads/2021/03/cover-winap.jpg" /></p> <p>Winamp یک رسانه پخش سریع ، انعطاف پذیر با اطمینان بالا برای ویندوز است. Winamp از پخش بسیاری فرمت های صوتی مانند: MP3 ، OGG ، AAC ، WAV ، MOD ، XM ، S3M ، IT ، MIDI و&#8230; و فرمت های ویدئو مانند: AVI ، ASF ، MPEG ، NSV و&#8230; پشتیبانی می کند، این نرم افزار از ظاهر سفارشی به نام skins پشتیبانی می کند. پوسته های x / 2.x و پوسته های فرم آزاد Winamp 3 ، پلاگین های تجسم صوتی و جلوه های صوتی (شامل دو افزونه ) ، کتابخانه رسانه پیشرفته ، پشتیبانی از رادیو و تلویزیون اینترنتی ، و رایت CD برخی از امکانات این نرم افزار پلیر می باشد.</p> <p style="text-align: center;"><span style="color: #008080;">| Winamp </span><span style="color: #008080;">– </span><span style="color: #008080;"><span style="color: #ff0000;">v5.8 <span style="color: #008000;">–</span> <span style="color: #0000ff;">۳۲&amp;64bit </span></span></span><span style="color: #008080;">|</span></p> <p style="text-align: center;"><span style="color: #008000;">| نسخه نهایی به صورت فشرده با حجم </span><span style="color: #008000;"><span style="color: #ff0000;">۱۰ مگابایت </span>|</span></p> <p><img src="https://www.dlfox.com/tools/img/money.jpg" /> قیمت نرم افزار: رایگان</p> "`,
     };
   },
 };

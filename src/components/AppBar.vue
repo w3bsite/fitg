@@ -88,6 +88,11 @@ export default {
           title: "Games",
           to: "/Games",
         },
+        {
+          icon: "mdi-test-tube",
+          title: "Test",
+          to: "/Test",
+        },
       ],
     };
   },

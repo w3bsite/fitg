@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "lodash": "^4.17.21",
+    "numeral": "^2.0.6",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-chimera": "^3.0.2",
@@ -50,7 +51,6 @@
       "parser": "babel-eslint"
     },
     "rules": {
- 
       "no-useless-escape": 0
     }
   },

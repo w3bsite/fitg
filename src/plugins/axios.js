@@ -8,5 +8,5 @@ Vue.prototype.$igdb = axios.create({
   baseURL: "https://api.igdb.com/v4/games",
 });
 Vue.prototype.$cor = axios.create({
-  baseURL: "https://corvirus.herokuapp.com/articles/",
+  baseURL: "https://sabz.herokuapp.com/https://corvirus.herokuapp.com/",
 });

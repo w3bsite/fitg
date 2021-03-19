@@ -12,31 +12,75 @@
 
     <!-- FORM -->
     <v-container class="my-0">
-      <v-card
-        color=" "
-        ref="form"
-        @submit="sub"
-        class="row  mx-3 pa-md-16 pa-2"
-      >
+      <v-card color=" " ref="form" @submit="sub" class="row mx-3 pa-md-16 pa-2">
         <v-container fluid>
           <v-row>
             <!-- TITLE && URL -->
-            <v-col cols="12" sm="10" md="4">
+            <v-col cols="12" sm="6" md="6">
               <v-row>
                 <!-- TITLE -->
-                <v-col cols="12" sm="8" md="12">
+                <v-col cols="12" sm="12" md="12">
                   <v-text-field
                     v-model="x.title"
                     placeholder="Enter Your Title"
-                    label="Enter Your Title"
+                    label="Title"
+                    outlined
+                    class="ma-0"
+                  />
+                  <v-text-field
+                    v-model="x.title"
+                    placeholder="Enter Your Caption"
+                    label="Genre"
+                    outlined
+                    class="ma-0"
+                  />
+                  <v-text-field
+                    v-model="x.title"
+                    placeholder="Enter Your TXT1"
+                    label="Developers"
                     outlined
                     class="ma-0"
                   />
                 </v-col>
+
                 <!-- URL SELECT -->
-                <v-col cols="12" sm="4" md="12">
+                <!-- <v-col cols="12" sm="4" md="12">
                   <v-select v-model="url" :items="urlSel" filled
-                /></v-col>
+                /></v-col> -->
+              </v-row>
+            </v-col>
+            <!-- TITLE && URL -->
+            <v-col cols="12" sm="6" md="6">
+              <v-row>
+                <!-- TITLE -->
+                <v-col cols="12" sm="12" md="12">
+                  <v-text-field
+                    v-model="x.title"
+                    placeholder="Enter Your Num1"
+                    label="Year"
+                    outlined
+                    class="ma-0"
+                  />
+                  <v-text-field
+                    v-model="x.title"
+                    placeholder="Number"
+                    label="Size"
+                    outlined
+                    class="ma-0"
+                  />
+                  <v-text-field
+                    v-model="x.title"
+                    placeholder="Enter Your Publisher"
+                    label="Enter Your Publisher"
+                    outlined
+                    class="ma-0"
+                  />
+                </v-col>
+
+                <!-- URL SELECT -->
+                <!-- <v-col cols="12" sm="4" md="12">
+                  <v-select v-model="url" :items="urlSel" filled
+                /></v-col> -->
               </v-row>
             </v-col>
 
@@ -54,7 +98,7 @@
            -->
 
             <!-- CONTENT -->
-            <v-col cols="12" sm="10" md="8">
+            <v-col cols="12" sm="10" md="12">
               <v-row>
                 <v-col>
                   <v-textarea

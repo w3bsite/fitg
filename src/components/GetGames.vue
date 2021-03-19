@@ -55,20 +55,14 @@ export default {
     cwidth: { default: 255, type: Number },
     cratio: { default: 5 / 7, type: Number },
   },
+  beforeCreate() {},
   mounted() {
     // this.$vuetify.rtl = true;
   },
-  filters: {
-    format(str) {
-      let x = str.replace(".jpg", " ");
-      return (str = x.replace("1/", " "));
-    },
-  },
-  computed: {},
   chimera: {
-    // For simple GET requests we can easily just put the url in here
-    games: "https://sabz.herokuapp.com/https://corvirus.herokuapp.com/products",
+    games: "https://corvirus.herokuapp.com/products",
   },
+
   data() {
     return {};
   },

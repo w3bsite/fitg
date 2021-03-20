@@ -1,7 +1,19 @@
 <template>
   <div>
     <v-container>
-      <v-row>
+      <div class="text-center">
+        <v-pagination v-model="page" :length="6"></v-pagination>
+      </div>
+      <v-btn @click="games.reload()" class="mb-16" block>reload</v-btn>
+      <v-sheet class="d-flex flex-column" height="500" v-if="games.loading">
+        <v-progress-circular
+          class="ma-auto"
+          size="100"
+          :width="3"
+          indeterminate
+        ></v-progress-circular>
+      </v-sheet>
+      <v-row v-else-if="games.data">
         <v-col
           :cols="ccols"
           :sm="csm"
@@ -11,13 +23,9 @@
           v-for="(g, i) in games.data"
           :key="i"
         >
-          <v-card>
+          <v-card :elevation="3">
             <div>
-              <v-card
-                dark
-                :elevation="0"
-                class="rounded-0 deep-purple accent-4"
-              >
+              <v-card color="warning" :elevation="0" class="rounded-0">
                 <div class="white">
                   <v-img
                     class="mx-auto"
@@ -27,15 +35,24 @@
                     alt="0"
                   />
                 </div>
-                <v-card-title>{{ g.title }}</v-card-title>
+                <v-card-title>
+                  <div class="text-body-1">{{ g.title }}</div>
+                </v-card-title>
               </v-card>
-              <v-card
-                :elevation="0"
-                class="rounded-0 text-body-1 darken-4 desc"
-              >
-                <v-card-text>{{
-                  g.description.substring(0, 400) + "..."
-                }}</v-card-text>
+              <v-card :elevation="0" class="text-body-1 darken-4 desc">
+                <v-card-text>
+                  {{ g.description.substring(0, 400) + "..." }}
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn
+                    large
+                    :to="`/games/single/` + g.id"
+                    color="primary"
+                    dark
+                  >
+                    {{ theme }}
+                  </v-btn>
+                </v-card-actions>
               </v-card>
             </div>
           </v-card>
@@ -55,16 +72,34 @@ export default {
     cwidth: { default: 255, type: Number },
     cratio: { default: 5 / 7, type: Number },
   },
-  beforeCreate() {},
+  beforeCreate() {
+    console.log(this.$url);
+  },
   mounted() {
     // this.$vuetify.rtl = true;
   },
+  computed: {
+    theme() {
+      return this.$vuetify.theme.dark ? true : false;
+    },
+  },
   chimera: {
-    games: "https://corvirus.herokuapp.com/products",
+    games() {
+      return (
+        this.$url +
+        "?_start=" +
+        (this.page - 1) * this.limit +
+        "&_limit=" +
+        this.limit
+      );
+    },
   },
 
   data() {
-    return {};
+    return {
+      page: 1,
+      limit: 6,
+    };
   },
 };
 </script>

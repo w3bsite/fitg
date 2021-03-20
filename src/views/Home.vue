@@ -19,8 +19,8 @@
 
 export default {
   name: "Home",
-  components: {},
-  computed: {},
-  data() {},
+  data() {
+    return {};
+  },
 };
 </script>

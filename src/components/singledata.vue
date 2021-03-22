@@ -1,0 +1,45 @@
+<template>
+  <v-container fluid>
+    <v-row class="">
+      <v-col style="direction: rtl">
+        <div>
+          <v-card v-if="game.data" class="pa-2 ma-0">
+            <v-card-title>{{ game.data.title }}</v-card-title>
+            <v-divider inset></v-divider>
+            <singletags :game="game" />
+            <v-divider inset></v-divider>
+
+            <v-sheet>
+              <v-avatar
+                tile
+                size="100%"
+                height="auto"
+                class="d-flex flex-column flex-sm-row"
+              >
+                <div class="text-right">{{ game.data.description }}</div>
+
+                <v-img
+                  max-width="255"
+                  :aspect-ratio="5 / 7"
+                  :src="`../img/1/` + game.data.title + `.jpg`"
+                >
+                </v-img>
+              </v-avatar>
+            </v-sheet>
+          </v-card>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<script>
+import singletags from "./singletags.vue";
+export default {
+  components: { singletags },
+  props: { game: { type: Object } },
+};
+</script>
+
+<style>
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div style="direction: rtl; height: 2000px">
+  <div style="direction: rtl">
     <v-img :src="`/img/1/1big/` + game.data.title + `.jpg`">
       <v-overlay opacity="0" absolute color="grey lighten-4 "> </v-overlay>
     </v-img>

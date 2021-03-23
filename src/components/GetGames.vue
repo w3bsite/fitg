@@ -25,7 +25,7 @@
         >
           <v-card :elevation="3">
             <div>
-              <v-card color="accent" :elevation="0" class="rounded-0">
+              <v-card color="warning" :elevation="0" class="rounded-0">
                 <div class="white">
                   <v-img
                     class="mx-auto"

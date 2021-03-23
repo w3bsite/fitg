@@ -9,8 +9,7 @@ if (workbox) {
 } 
 else {
     console.log(`Workbox didn't load`);
-},
-
+}
 if (process.env.NODE_ENV === "production") {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
@@ -28,10 +27,9 @@ if (process.env.NODE_ENV === "production") {
     updatefound() {
       console.log("New content is downloading.");
     },
-updated (registration) {
-  console.log('New content is available; please refreshhh.')
-
-},
+    updated() {
+      console.log("New content is available; please refresh.");
+    },
     offline() {
       console.log(
         "No internet connection found. App is running in offline mode."

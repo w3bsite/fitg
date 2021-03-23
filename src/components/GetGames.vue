@@ -46,11 +46,14 @@
                 <v-card-actions>
                   <v-btn
                     large
-                    :to="`/games/single/` + g.id"
+                    :to="{
+                      name: 'single',
+                      params: { id: g.id, single:g },
+                    }"
                     color="primary"
                     dark
                   >
-                    {{ theme }}
+                    {{ theme }} <br />
                   </v-btn>
                 </v-card-actions>
               </v-card>

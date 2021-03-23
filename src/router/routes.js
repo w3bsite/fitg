@@ -28,6 +28,7 @@ const routes = [
   {
     path: "/games/single/:id",
     name: "single",
+    props: true,
     component: () => import("../components/single"),
   },
   {

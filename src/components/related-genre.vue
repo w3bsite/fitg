@@ -1,9 +1,13 @@
 <template>
-  <div></div>
+  <v-container>
+    <v-img></v-img>
+  </v-container>
 </template>
 
 <script>
-export default {};
+export default {
+  
+};
 </script>
 
 <style>

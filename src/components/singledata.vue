@@ -3,8 +3,8 @@
     <v-row class="">
       <v-col style="direction: rtl">
         <div>
-          <v-card v-if="game.data" class="pa-2 ma-0">
-            <v-card-title>{{ game.data.title }}</v-card-title>
+          <v-card v-if="game" class="pa-2 ma-0">
+            <v-card-title>{{ game.title }}</v-card-title>
             <v-divider inset></v-divider>
             <singletags :game="game" />
             <v-divider inset></v-divider>
@@ -16,12 +16,12 @@
                 height="auto"
                 class="d-flex flex-column flex-sm-row"
               >
-                <div class="text-right">{{ game.data.description }}</div>
+                <div class="text-right">{{ game.description }}</div>
 
                 <v-img
                   max-width="255"
                   :aspect-ratio="5 / 7"
-                  :src="`../img/1/` + game.data.title + `.jpg`"
+                  :src="`../img/1/` + game.title + `.jpg`"
                 >
                 </v-img>
               </v-avatar>

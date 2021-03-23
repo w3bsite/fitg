@@ -1,15 +1,7 @@
 /* eslint-disable no-console */
 
 import { register } from "register-service-worker";
-if (workbox) {
-    console.log(`Workbox is loaded`);
 
-    workbox.precaching.precacheAndRoute(self.__precacheManifest);
-
-} 
-else {
-    console.log(`Workbox didn't load`);
-}
 if (process.env.NODE_ENV === "production") {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {

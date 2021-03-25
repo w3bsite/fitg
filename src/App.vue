@@ -4,7 +4,9 @@
       <v-main>
         <!-- Provides the application the proper gutter -->
         <v-container fluid>
-          <router-view></router-view>
+          <keep-alive include="getgames">
+            <router-view></router-view>
+          </keep-alive>
         </v-container>
       </v-main>
     </AppBar>
@@ -20,6 +22,6 @@ export default {
 
   data: () => ({
     //
-  })
+  }),
 };
 </script>

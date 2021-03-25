@@ -28,10 +28,12 @@
               <v-card color="accent" :elevation="0" class="rounded-0">
                 <div class="white">
                   <v-img
+                    :eager="false"
                     class="mx-auto"
                     :width="cwidth"
                     :aspect-ratio="cratio"
                     :src="`/img/1/` + g.title + `.jpg`"
+                    :lazy-src="`/img/1/` + g.title + `.jpg`"
                     alt="0"
                   />
                 </div>
@@ -48,12 +50,13 @@
                     large
                     :to="{
                       name: 'single',
-                      params: { id: g.id, single:g },
+                      params: { id: g.id, single: g },
                     }"
                     color="primary"
                     dark
+                    class="text-body-1 font-weight-bold"
                   >
-                    {{ theme }} <br />
+                     بیشتر <br />
                   </v-btn>
                 </v-card-actions>
               </v-card>

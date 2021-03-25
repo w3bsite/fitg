@@ -1,13 +1,16 @@
 <template>
   <div>
-      <test></test>
+    <!-- <test></test> -->
+    <related-genre></related-genre>
   </div>
 </template>
 
 <script>
-import test from '../components/test.vue';
+import RelatedGenre from "../components/related-genre.vue";
+// import test from "../components/testt.vue";
 export default {
-  components: { test },
+  components: { RelatedGenre },
+  name: "testt",
   data() {
     return {};
   },

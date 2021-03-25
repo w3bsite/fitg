@@ -8,6 +8,7 @@
 <script>
 import GetGames from "../components/GetGames.vue";
 export default {
+  name: "getgames",
   components: { GetGames }
 };
 </script>

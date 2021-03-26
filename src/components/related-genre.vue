@@ -3,8 +3,9 @@
     <v-container fluid>
       <v-row>
         <div v-for="(r, i) in related.data" :key="i">
-          <div :class="{ 'red d-none': hide == r.id, 'col-12': hide != r.id }">
-            <h1>{{ id }}</h1>
+          <div
+            :class="{ 'red d-none': hide == r.id, 'col-12': hide != r.id }"
+          >
             <v-sheet elevation="5" class="d-flex flex-column mx-auto">
               <v-sheet>
                 <v-img :src="`/img/1/` + r.title + `.jpg`"></v-img>

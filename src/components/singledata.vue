@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row class="">
       <v-col style="direction: rtl">
-        <div>
+        <div >
           <v-card v-if="game" class="pa-2 ma-0">
             <v-card-title>{{ game.title }}</v-card-title>
             <v-divider inset></v-divider>

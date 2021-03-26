@@ -7,6 +7,7 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import "./plugins/chimera";
 import "./plugins/asynccomputed";
+import "./plugins/qs";
 
 new Vue({
   router,

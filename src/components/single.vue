@@ -1,29 +1,33 @@
 <template>
-  <div style="direction: rtl">
-    <v-img :src="`/img/1/1big/` + game.title + `.jpg`">
-      <div class="fill-height repeating-gradient"></div>
-    </v-img>
+  <div v-if="this.game" style="direction: rtl">
+    <div>
+      <v-img :src="`/img/1/1big/` + game.title + `.jpg`">
+        <div class="fill-height repeating-gradient"></div>
+      </v-img>
 
-    <singledata :game="game" />
+      <singledata :game="this.game" />
+      <related-genre
+        :Genre="this.game.caption"
+        :id="this.game.id"
+      ></related-genre>
+    </div>
   </div>
 </template>
 
 <script>
+import RelatedGenre from "./related-genre.vue";
 import singledata from "./singledata.vue";
 export default {
-  components: { singledata },
+  components: { singledata, RelatedGenre },
   props: { single: { type: Object } },
   name: "single",
   data() {
     return {};
   },
   computed: {
-    singlegame() {
-      return this.apig.data;
-    },
     game() {
       if (!this.single) {
-        return this.singlegame;
+        return this.apig.data;
       } else {
         return this.single;
       }
@@ -36,10 +40,10 @@ export default {
       console.log(this.apig.data);
     }
   },
-  chimera: {
-    apig() {
-      return this.$url + "/" + this.$route.params.id;
-    },
+  chimera() {
+    return {
+      apig: this.$url + "/" + this.$route.params.id,
+    };
   },
 };
 </script>

@@ -87,7 +87,7 @@
       </v-row>
       <div class="text-center">
         <v-pagination
-          :color="theme ? 'deep-purple accent-4 ' : 'orange accent-3'"
+          :color="theme ? 'deep-purple accent-4 ' : 'orange accent-4'"
           v-model="page"
           :length="3"
           class="mt-6"

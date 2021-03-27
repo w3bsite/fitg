@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Games page</h1>
     <get-games></get-games>
   </div>
 </template>
@@ -9,7 +8,7 @@
 import GetGames from "../components/GetGames.vue";
 export default {
   name: "getgames",
-  components: { GetGames }
+  components: { GetGames },
 };
 </script>
 

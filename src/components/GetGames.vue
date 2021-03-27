@@ -1,10 +1,15 @@
 <template>
   <div>
     <v-container>
+      <!-- <v-btn @click="games.reload()" class="my-8" block>reload</v-btn> -->
       <div class="text-center">
-        <v-pagination v-model="page" :length="6"></v-pagination>
+        <v-pagination
+          :color="theme ? 'deep-purple accent-4 ' : 'orange accent-4'"
+          v-model="page"
+          :length="3"
+          class="mt-6 mb-6"
+        ></v-pagination>
       </div>
-      <v-btn @click="games.reload()" class="mb-16" block>reload</v-btn>
       <v-sheet class="d-flex flex-column" height="500" v-if="games.loading">
         <v-progress-circular
           class="ma-auto"
@@ -25,7 +30,12 @@
         >
           <v-card :elevation="3">
             <div>
-              <v-card color="accent" :elevation="0" class="rounded-0">
+              <v-card
+                :color="theme ? 'orange accent-4 ' : 'deep-purple accent-4'"
+                :elevation="0"
+                class="rounded-0"
+                dark
+              >
                 <div class="white">
                   <v-img
                     :eager="false"
@@ -38,12 +48,21 @@
                   />
                 </div>
                 <v-card-title>
-                  <div class="text-body-1">{{ g.title }}</div>
+                  <div class="text-h6" style="font-size: 18px !important">
+                    {{
+                      g.title.length > "29"
+                        ? g.title.substring(0, 29) + ".."
+                        : g.title
+                    }}
+                  </div>
                 </v-card-title>
               </v-card>
               <v-card :elevation="0" class="text-body-1 darken-4 desc">
-                <v-card-text>
-                  {{ g.description.substring(0, 400) + "..." }}
+                <v-card-text
+                  class="text-body-1"
+                  style="font-size: 14px !important"
+                >
+                  {{ g.description.substring(0, 420) + "..." }}
                 </v-card-text>
                 <v-card-actions>
                   <v-btn
@@ -52,11 +71,13 @@
                       name: 'single',
                       params: { id: g.id, single: g },
                     }"
-                    color="primary"
+                    :color="theme ? 'pink accent-4' : 'red accent-4'"
+                    
+                    depressed
                     dark
-                    class="text-body-1 font-weight-bold"
+                    class="text-body-1 "
                   >
-                     بیشتر <br />
+                    بیشتر <br />
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -64,6 +85,14 @@
           </v-card>
         </v-col>
       </v-row>
+      <div class="text-center">
+        <v-pagination
+          :color="theme ? 'deep-purple accent-4 ' : 'orange accent-4'"
+          v-model="page"
+          :length="3"
+          class="mt-6"
+        ></v-pagination>
+      </div>
     </v-container>
   </div>
 </template>

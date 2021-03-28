@@ -1,34 +1,36 @@
 <template>
-  <div v-if="this.game" style="direction: rtl">
-    <div>
-      <v-img eager :src="`/img/1/1big/` + game.title + `.jpg`">
-        <div class="fill-height repeating-gradient"></div>
-      </v-img>
-
-      <singledata :game="this.game" />
+  <v-expand-x-transition>
+    <div v-if="game" style="direction: rtl">
       <div>
-        <v-alert
-          v-model="alert"
-          border="right"
-          close-text="Close Alert"
-          color="deep-purple accent-4"
-          dark
-          dismissible
-          class="text-body-1 font-weight-bold mt-6 mb-2"
-          style="direction: rtl"
-        >
-          {{ ".." + game.title.substring(0, 15) }} را دوست داشتید؟ بازی های زیر
-          را به شما پیشنهاد میکنیم.
-        </v-alert>
-        <div class="text-center"></div>
+        <v-img eager :src="`/img/1/1big/` + game.title + `.jpg`">
+          <div class="fill-height repeating-gradient"></div>
+        </v-img>
+
+        <singledata :game="this.game" />
+        <div>
+          <v-alert
+            v-model="alert"
+            border="right"
+            close-text="Close Alert"
+            color="deep-purple accent-4"
+            dark
+            dismissible
+            class="text-body-1 font-weight-bold mt-6 mb-2"
+            style="direction: rtl"
+          >
+            {{ game.title }} را دوست داشتید؟ بازی های زیر را به شما پیشنهاد
+            میکنیم.
+          </v-alert>
+          <div class="text-center"></div>
+        </div>
+        <relatedslide
+          style="direction: ltr"
+          :Genre="this.game.caption"
+          :id="this.game.id"
+        ></relatedslide>
       </div>
-      <relatedslide
-        style="direction: ltr"
-        :Genre="this.game.caption"
-        :id="this.game.id"
-      ></relatedslide>
     </div>
-  </div>
+  </v-expand-x-transition>
 </template>
 
 <script>
@@ -39,7 +41,7 @@ export default {
   props: { single: { type: Object } },
   name: "single",
   data() {
-    return {};
+    return { alert: true };
   },
   computed: {
     game() {

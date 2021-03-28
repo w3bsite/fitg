@@ -106,10 +106,15 @@ export default {
       let query1 = x.split("،")[1];
       let query2 = x.split("،")[2];
       let query3 = x.split("،")[3];
+
       this.t1 = query;
       this.t2 = query1;
       this.t3 = query2;
       this.t4 = query3;
+      console.log(this.t1);
+      console.log(this.t2);
+      console.log(this.t3);
+      console.log(this.t4);
     },
   },
 };

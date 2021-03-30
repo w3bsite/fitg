@@ -26,10 +26,10 @@ const routes = [
     component: () => import("../views/About"),
   },
   {
-    path: "/games/single/:id",
+    path: "/games/Single/:id",
     name: "single",
     props: true,
-    component: () => import("../components/single"),
+    component: () => import("../components/SingleGame"),
   },
   {
     path: "/test",

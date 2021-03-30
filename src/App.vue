@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <AppBar>
+    <AppBar :class="theme">
       <v-main>
         <!-- Provides the application the proper gutter -->
         <v-container fluid>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import AppBar from "@/components/AppBar.vue";
+import AppBar from "@/components/Globals/AppBar.vue";
 export default {
   name: "App",
 
@@ -23,5 +23,10 @@ export default {
   data: () => ({
     //
   }),
+  computed: {
+    theme() {
+      return this.$vuetify.theme.dark ? " " : "amber lighten-5";
+    },
+  },
 };
 </script>

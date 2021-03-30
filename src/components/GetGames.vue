@@ -1,16 +1,7 @@
 <template>
   <div>
     <v-container>
-      <!-- <v-btn @click="games.reload()" class="my-8" block>reload</v-btn> -->
-      <div class="text-center">
-        <v-pagination
-          :color="theme ? 'indigo accent-4' : 'indigo accent-4'"
-          v-model="page"
-          :length="3"
-          class="mt-6 mb-6"
-        >
-        </v-pagination>
-      </div>
+      <div></div>
       <v-sheet class="d-flex flex-column" height="500" v-if="games.loading">
         <v-progress-circular
           class="ma-auto"
@@ -29,7 +20,7 @@
           v-for="(g, i) in games.data"
           :key="i"
         >
-          <v-card :elevation="3">
+          <v-card elevation="">
             <div>
               <v-card
                 :color="theme ? 'deep-purple accent-4' : 'red  accent-4'"
@@ -109,6 +100,9 @@ export default {
     clg: { default: 4, type: Number },
     cwidth: { default: 255, type: Number },
     cratio: { default: 5 / 7, type: Number },
+    sort: { default: "updated_at", type: String },
+    filter: { default: "2010", type: String },
+    genre: { default: "ورزشی", type: String },
   },
   beforeCreate() {
     console.log(this.$url);
@@ -125,7 +119,8 @@ export default {
     games() {
       return (
         this.$url +
-        "?_start=" +
+        `?caption_contains=${this.genre}` +
+        "&_start=" +
         (this.page - 1) * this.limit +
         "&_limit=" +
         this.limit

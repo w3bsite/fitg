@@ -1,119 +1,149 @@
 <template>
-  <v-container>
-    <div class="text-center">
-      {{ ipage }}<br />
-      {{ ilimit }}<br />
-      {{ itotal }}
-      <v-pagination
-        :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
-        v-model="page"
-        :length="itotalpages"
-        class="mt-6"
-      ></v-pagination>
-    </div>
+  <v-container fluid>
     <v-row>
-      <v-col>
-        <v-card>
-          <v-card-text>
-            <v-range-slider
-              v-model="value"
-              :tick-labels="label"
-              :max="2023"
-              :min="2014"
-            ></v-range-slider>
-          </v-card-text>
-        </v-card>
-        <v-select v-model="genre" :items="items" label="label"></v-select>
-        <v-banner color="purple" dark>{{ genre }}</v-banner>
-      </v-col>
-    </v-row>
-    <v-sheet class="d-flex flex-column" height="500" v-if="games.loading">
-      <v-progress-circular
-        class="ma-auto"
-        size="100"
-        :width="3"
-        indeterminate
-      ></v-progress-circular>
-    </v-sheet>
-    <v-container>
-      <v-row>
-        <v-col
-          v-for="(game, i) in finalgames"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="4"
-          :key="i"
-          :class="{ red: game.num1 < value[0] || game.num1 > value[1] }"
-        >
-          <v-card elevation="">
-            <div>
-              <v-card
-                :color="theme ? 'deep-purple accent-4' : 'red  accent-4'"
-                :elevation="0"
-                class="rounded-0"
-                dark
-              >
-                <div class="white">
-                  <v-img
-                    :eager="false"
-                    class="mx-auto"
-                    :width="cwidth"
-                    :aspect-ratio="cratio"
-                    :src="`/img/1/` + game.title + `.jpg`"
-                    :lazy-src="`/img/1/` + game.title + `.jpg`"
-                    alt="0"
-                  />
-                </div>
-                <v-card-title>
-                  <div class="text-h6" style="font-size: 18px !important">
-                    {{
-                      game.title.length > "29"
-                        ? game.title.substring(0, 29) + ".."
-                        : game.title
-                    }}
-                  </div>
-                </v-card-title>
-              </v-card>
-              <v-card :elevation="0" class="text-body-1 darken-4 desc">
-                <v-card-text
-                  class="text-body-1"
-                  :class="{
-                    'white--text': theme,
-                    'grey--text text--darken-4': !theme,
-                  }"
-                  style="font-size: 14px !important"
-                >
-                  {{ game.description.substring(0, 420) + "..." }}
-                </v-card-text>
-                <v-card-actions>
-                  <v-btn
-                    large
-                    :to="{
-                      name: 'single',
-                      params: { id: game.id, single: game },
+      <v-container fluid>
+        <div class="text-center">
+          <v-pagination
+            :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
+            v-model="page"
+            :length="itotalpages"
+            class="my-2"
+          ></v-pagination>
+        </div>
+        <v-row>
+          <v-col cols="12" sm="2">
+            <v-container fluid>
+              <v-row>
+                <v-col cols="12">
+                  <v-card>
+                    <v-card-text>
+                      <v-range-slider
+                        vertical
+                        v-model="value"
+                        :tick-labels="label"
+                        :max="2023"
+                        :min="2014"
+                        class="large-slider"
+                      ></v-range-slider>
+                    </v-card-text>
+                  </v-card>
+                  <v-select
+                    v-model="genre"
+                    :items="items"
+                    label="Genre"
+                  ></v-select>
+                  <!-- <v-banner color="purple" dark>{{ genre }}</v-banner> -->
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-col>
+          <v-col cols="12" sm="10">
+            <v-container v-if="finalgames" fluid>
+              <v-container fluid>
+                <v-row>
+                  <v-col
+                    v-for="(game, i) in finalgames"
+                    cols="12"
+                    sm="6"
+                    md="4"
+                    lg="4"
+                    :key="i"
+                    :class="{
+                      red: game.num1 < value[0] || game.num1 > value[1],
                     }"
-                    dark
-                    :color="theme ? 'red  accent-4' : 'deep-purple accent-4'"
-                    class="text-body-1 font-weight-normal"
                   >
-                    بیشتر <br />
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </div>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    <div class="text-center">
-      <v-pagination
-        :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
-        v-model="page"
-        :length="itotalpages"
-        class="mt-6"
-      ></v-pagination>
-    </div>
+                    <v-card style="direction: rtl">
+                      <div>
+                        <v-card
+                          :color="
+                            theme ? 'deep-purple accent-4' : 'red  accent-4'
+                          "
+                          :elevation="0"
+                          class="rounded-0"
+                          dark
+                        >
+                          <div class="white">
+                            <v-img
+                              :eager="false"
+                              class="mx-auto"
+                              :width="cwidth"
+                              :aspect-ratio="cratio"
+                              :src="`/img/1/` + game.title + `.jpg`"
+                              :lazy-src="`/img/1/` + game.title + `.jpg`"
+                              alt="0"
+                            />
+                          </div>
+                          <v-card-title>
+                            <div
+                              class="text-h6"
+                              style="font-size: 18px !important"
+                            >
+                              {{
+                                game.title.length > "29"
+                                  ? game.title.substring(0, 29) + ".."
+                                  : game.title
+                              }}
+                            </div>
+                          </v-card-title>
+                        </v-card>
+                        <v-card
+                          :elevation="0"
+                          class="text-body-1 darken-4 desc"
+                        >
+                          <v-card-text
+                            class="text-body-1 text-right"
+                            :class="{
+                              'white--text': theme,
+                              'grey--text text--darken-4': !theme,
+                            }"
+                            style="font-size: 14px !important"
+                          >
+                            {{ game.description.substring(0, 410) + "..." }}
+                          </v-card-text>
+                          <v-card-actions style="direction: ltr">
+                            <v-btn
+                              large
+                              :to="{
+                                name: 'single',
+                                params: { id: game.id, single: game },
+                              }"
+                              dark
+                              :color="
+                                theme ? 'red  accent-4' : 'deep-purple accent-4'
+                              "
+                              class="text-body-1 font-weight-normal"
+                            >
+                              بیشتر
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </div>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+
+              <!-- <div class="text-center">
+        <v-pagination
+          :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
+          v-model="page"
+          :length="itotalpages"
+          class="mt-6"
+        ></v-pagination>
+      </div> -->
+            </v-container>
+            <v-sheet class="d-flex flex-column" width="" height="600" v-else>
+              <v-progress-circular
+                class="ma-auto"
+                size="100"
+                :width="3"
+                indeterminate
+              ></v-progress-circular>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-row>
   </v-container>
 </template>
 
@@ -201,4 +231,7 @@ export default {
 </script>
 
 <style>
+.v-slider {
+  height: 500px;
+}
 </style>

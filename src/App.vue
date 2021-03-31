@@ -4,7 +4,7 @@
       <v-main>
         <!-- Provides the application the proper gutter -->
         <v-container fluid>
-          <keep-alive include="getgames">
+          <keep-alive include="">
             <router-view></router-view>
           </keep-alive>
         </v-container>

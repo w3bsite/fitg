@@ -1,10 +1,11 @@
 <template>
-  <div></div>
+  <Test></Test>
 </template>
 
 <script>
+import Test from "../components/test";
 export default {
-  components: {},
+  components: { Test },
   name: "test",
   data() {
     return {};

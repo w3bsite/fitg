@@ -1,7 +1,15 @@
 <template>
   <div>
     <v-container>
-      <div></div>
+      <!-- <v-btn @click="games.reload()" class="my-8" block>reload</v-btn> -->
+      <div class="text-center">
+        <v-pagination
+          :color="theme ? 'deep-purple accent-4 ' : 'orange accent-4'"
+          v-model="page"
+          :length="3"
+          class="mt-6 mb-6"
+        ></v-pagination>
+      </div>
       <v-sheet class="d-flex flex-column" height="500" v-if="games.loading">
         <v-progress-circular
           class="ma-auto"
@@ -20,10 +28,10 @@
           v-for="(g, i) in games.data"
           :key="i"
         >
-          <v-card elevation="">
+          <v-card :elevation="3">
             <div>
               <v-card
-                :color="theme ? 'deep-purple accent-4' : 'red  accent-4'"
+                :color="theme ? 'orange accent-4 ' : 'deep-purple accent-4'"
                 :elevation="0"
                 class="rounded-0"
                 dark
@@ -52,10 +60,6 @@
               <v-card :elevation="0" class="text-body-1 darken-4 desc">
                 <v-card-text
                   class="text-body-1"
-                  :class="{
-                    'white--text': theme,
-                    'grey--text text--darken-4': !theme,
-                  }"
                   style="font-size: 14px !important"
                 >
                   {{ g.description.substring(0, 420) + "..." }}
@@ -67,9 +71,10 @@
                       name: 'single',
                       params: { id: g.id, single: g },
                     }"
+                    :color="theme ? 'pink accent-4' : 'red accent-4'"
+                    depressed
                     dark
-                    :color="theme ? 'red  accent-4' : 'deep-purple accent-4'"
-                    class="text-body-1 font-weight-normal"
+                    class="text-body-1"
                   >
                     بیشتر <br />
                   </v-btn>
@@ -81,7 +86,7 @@
       </v-row>
       <div class="text-center">
         <v-pagination
-          :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
+          :color="theme ? 'deep-purple accent-4 ' : 'orange accent-4'"
           v-model="page"
           :length="3"
           class="mt-6"
@@ -90,7 +95,6 @@
     </v-container>
   </div>
 </template>
-
 <script>
 export default {
   props: {
@@ -100,9 +104,6 @@ export default {
     clg: { default: 4, type: Number },
     cwidth: { default: 255, type: Number },
     cratio: { default: 5 / 7, type: Number },
-    sort: { default: "updated_at", type: String },
-    filter: { default: "2010", type: String },
-    genre: { default: "ورزشی", type: String },
   },
   beforeCreate() {
     console.log(this.$url);
@@ -119,15 +120,13 @@ export default {
     games() {
       return (
         this.$url +
-        `?caption_contains=${this.genre}` +
-        "&_start=" +
+        "?_start=" +
         (this.page - 1) * this.limit +
         "&_limit=" +
         this.limit
       );
     },
   },
-
   data() {
     return {
       page: 1,
@@ -136,7 +135,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .desc {
   direction: rtl;

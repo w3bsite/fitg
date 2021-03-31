@@ -1,10 +1,13 @@
 <template>
   <v-container>
     <div class="text-center">
+      {{ ipage }}<br />
+      {{ ilimit }}<br />
+      {{ itotal }}
       <v-pagination
         :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
         v-model="page"
-        :length="3"
+        :length="itotalpages"
         class="mt-6"
       ></v-pagination>
     </div>
@@ -35,13 +38,13 @@
     <v-container>
       <v-row>
         <v-col
-          v-for="(game, i) in games.data"
+          v-for="(game, i) in finalgames"
           cols="12"
           sm="6"
           md="4"
           lg="4"
           :key="i"
-          :class="{ 'd-none': game.num1 < value[0] || game.num1 > value[1] }"
+          :class="{ red: game.num1 < value[0] || game.num1 > value[1] }"
         >
           <v-card elevation="">
             <div>
@@ -107,7 +110,7 @@
       <v-pagination
         :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
         v-model="page"
-        :length="3"
+        :length="itotalpages"
         class="mt-6"
       ></v-pagination>
     </div>
@@ -137,23 +140,59 @@ export default {
       er: null,
       items: ["اکشن", "اول شخص", "شوتر", "ورزشی", "RPG", " "],
       page: 1,
-      limit: "6",
+      limit: 6,
     };
   },
   chimera: {
     games() {
       return {
+        prefetch: true,
         url: this.$url,
         params: {
           caption_contains: this.genre,
           _sort: this.sort + `:` + this.assend,
-          _start: (this.page - 1) * this.limit,
-          _limit: this.limit,
+          // _start: (this.page - 1) * this.limit,
+          // _limit: this.limit,
         },
       };
     },
   },
   computed: {
+    ipage() {
+      return (this.page - 1) * this.limit;
+    },
+    ilimit() {
+      return this.ipage + this.limit;
+    },
+    itotal() {
+      if (this.$chimera.games.data) {
+        return this.filteredgames.length;
+      } else {
+        return null;
+      }
+    },
+    finalgames() {
+      if (this.$chimera.games.data) {
+        return this.filteredgames.slice(this.ipage, this.ilimit);
+      } else {
+        return null;
+      }
+    },
+    itotalpages() {
+      return this.itotal ? Math.ceil(this.itotal / this.limit) : null;
+    },
+    filteredgames() {
+      if (this.$chimera.games.data) {
+        return this.games.data.filter(
+          (e) =>
+            e.caption.includes(this.genre) &&
+            (e.num1 > this.value[0] || e.num1 == this.value[0]) &&
+            (e.num1 < this.value[1] || e.num1 == this.value[1])
+        );
+      } else {
+        return null;
+      }
+    },
     theme() {
       return this.$vuetify.theme.dark ? true : false;
     },

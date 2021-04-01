@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row class="">
-      <v-col style="direction: rtl">
+      <v-col style="">
         <div>
           <v-card v-if="game" class="pa-2 ma-0">
             <v-card-title>{{ game.title }}</v-card-title>
@@ -9,30 +9,23 @@
             <singletags :game="game" />
             <v-divider inset></v-divider>
 
-            <v-sheet>
-              <v-avatar
-                tile
-                size="100%"
-                height="auto"
-                class="my-5 d-flex flex-column flex-sm-row"
-              >
-                <div class="text-right">{{ game.description }}</div>
-
+            <div class="d-flex">
+              <div class="d-flex flex-column">
+                <div style="">{{ game.description }}</div>
                 <v-img
-                  max-width="255"
-                  :aspect-ratio="5 / 7"
-                  :src="`../img/1/` + game.title + `.jpg`"
+                  max-width="420"
+                  :src="`../img/1/` + game.title + `.gif`"
+                  class="mx-auto my-5"
                 >
                 </v-img>
-              </v-avatar>
-
+              </div>
               <v-img
-                max-width="420"
-                :src="`../img/1/` + game.title + `.gif`"
-                class="mx-auto my-5 col-12"
+                width="255"
+                :aspect-ratio="5 / 7"
+                :src="`../img/1/` + game.title + `.jpg`"
               >
               </v-img>
-            </v-sheet>
+            </div>
           </v-card>
         </div>
       </v-col>

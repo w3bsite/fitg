@@ -32,6 +32,11 @@ const routes = [
     component: () => import("../components/SingleGame"),
   },
   {
+    path: "/redirect",
+    name: "redirect",
+    component: () => import("../components/redirect"),
+  },
+  {
     path: "/test",
     name: "Test",
     component: () => import("../views/Test"),

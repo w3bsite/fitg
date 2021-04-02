@@ -1,77 +1,46 @@
 <template>
   <div>
-    <v-container>
-      <v-row>
-        <v-card>{{ jwt }}</v-card>
-        <v-card class="mx-auto pa-5">
-          <span v-if="signup.error" class="spinner">{{ signup.error }}</span>
-          <span v-else-if="signup.data">
-            {{ signup.data }}
-          </span>
-          <v-form @submit="signup.send()">
-            <v-col>
-              <v-text-field
-                v-model="username"
-                :rules="Rules"
-                label="username"
-                append-icon="mdi-face"
-                required
-              ></v-text-field>
-              {{ username }}
-              <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="E-mail"
-                append-icon="mdi-at"
-                required
-              ></v-text-field>
-              {{ password }}
-              <v-text-field
-                v-model="password"
-                label="Password"
-                :rules="Rules"
-                hide-details="auto"
-                append-icon="mdi-lock"
-                required
-              >
-                {{ email }}
-              </v-text-field>
-            </v-col>
-            <v-card-actions dir="rtl">
-              <v-btn type="submit">Submit</v-btn>
-            </v-card-actions>
-          </v-form>
-        </v-card>
-        <v-card>
-          <v-btn :href="this.$urllog">google</v-btn>
-        </v-card>
-      </v-row>
+    <v-container style="max-width: 350px">
+      <v-tabs centered grow v-model="tab">
+        <v-tab>register </v-tab>
+        <v-tab> login</v-tab>
+      </v-tabs>
+      <v-tabs-items style="max-width: 350px" v-model="tab">
+        <v-tab-item>
+          <signup></signup>
+        </v-tab-item>
+        <v-tab-item>
+          <signin></signin>
+        </v-tab-item>
+      </v-tabs-items>
     </v-container>
   </div>
 </template>
 
 <script>
+import Signin from "./signin.vue";
+import signup from "./signup.vue";
 export default {
+  components: { signup, Signin },
   mounted() {},
   chimera: {
-    signup() {
+    signin() {
       return {
-        url: this.$urlroot + `/auth/local/register`,
+        url: this.$urlroot + `/auth/local`,
         method: "post",
         params: {
-          username: this.username,
+          identifier: this.username,
           password: this.password,
-          email: this.email,
         },
       };
     },
   },
   computed: {
     jwt() {
-      if (this.$chimera.signup.status == 200) {
-        this.$cookies.set("jwt", this.$chimera.signup.data.jwt);
+      if (this.$chimera.signin.status == 200) {
+        this.$cookies.set("jwt", this.$chimera.signin.data.jwt);
         console.log(this.$cookies.get("jwt"));
-        return this.$chimera.signup.data.jwt;
+        return this.$chimera.signin.data.jwt;
       } else {
         return "";
       }
@@ -80,6 +49,7 @@ export default {
   watch: {},
   data() {
     return {
+      tab: "",
       valid: false,
       username: "",
       email: "",

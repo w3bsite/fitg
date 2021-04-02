@@ -7,7 +7,7 @@
 <script>
 import GetGames from "../components/GetGames.vue";
 export default {
-  name: "getgames",
+  name: "games",
   components: { GetGames },
 };
 </script>

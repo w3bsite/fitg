@@ -25,7 +25,12 @@ export default {
   components: { topslider, fetchgames },
   chimera: {
     apig() {
-      return { url: this.$url };
+      return {
+        url: this.$url,
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("jwt")}`,
+        },
+      };
     },
   },
 };

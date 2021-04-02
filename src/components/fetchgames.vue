@@ -27,11 +27,14 @@
                       ></v-range-slider>
                     </v-card-text>
                   </v-card>
+
                   <v-select
+                    @input="page = 1"
                     v-model="genre"
                     :items="items"
                     label="Genre"
                   ></v-select>
+
                   <!-- <v-banner color="purple" dark>{{ genre }}</v-banner> -->
                 </v-col>
               </v-row>
@@ -179,8 +182,11 @@ export default {
       return {
         prefetch: true,
         url: this.$url,
+        headers: {
+          Authorization: `Bearer ${this.$cookies.get("jwt")}`,
+        },
         params: {
-          caption_contains: this.genre,
+          // caption_contains: this.genre,
           _sort: this.sort + `:` + this.assend,
           // _start: (this.page - 1) * this.limit,
           // _limit: this.limit,
@@ -188,6 +194,7 @@ export default {
       };
     },
   },
+  methods: {},
   computed: {
     ipage() {
       return (this.page - 1) * this.limit;

@@ -18,6 +18,7 @@
     "vue": "^2.6.11",
     "vue-async-computed": "^3.9.0",
     "vue-chimera": "^3.0.2",
+    "vue-cookies": "^1.7.4",
     "vue-numeral-filter": "^2.0.0",
     "vue-router": "^3.2.0",
     "vuetify": "^2.4.0",

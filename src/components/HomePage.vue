@@ -7,7 +7,8 @@
     <v-container fluid>
       <v-sheet outlined>
         <v-row align="center">
-          <v-col class="mx-auto" cols="12" sm="12"> <Test></Test> </v-col
+          <v-col class="mx-auto" cols="12" sm="12">
+            <fetchgames></fetchgames> </v-col
         ></v-row>
       </v-sheet>
     </v-container>
@@ -15,13 +16,13 @@
 </template>
 
 <script>
-import Test from "../views/Test.vue";
+import fetchgames from "../components/fetchgames.vue";
 import topslider from "./HomePage/topslider.vue";
 export default {
   data() {
     return { items: ["اکشن", "اول شخص", "شوتر", "ورزشی", "RPG"], genre: "ا" };
   },
-  components: { topslider, Test },
+  components: { topslider, fetchgames },
   chimera: {
     apig() {
       return { url: this.$url };

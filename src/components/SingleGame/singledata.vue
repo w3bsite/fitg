@@ -9,20 +9,22 @@
             <singletags :game="game" />
             <v-divider inset></v-divider>
 
-            <div class="d-flex">
-              <div class="d-flex flex-column">
-                <div style="">{{ game.description }}</div>
+            <div class="d-flex flex-column my-5">
+              <div class="d-flex">
                 <v-img
-                  max-width="420"
-                  :src="`../img/1/` + game.title + `.gif`"
-                  class="mx-auto my-5"
+                  width="255"
+                  :aspect-ratio="5 / 7"
+                  :src="`../img/1/` + game.title + `.jpg`"
                 >
                 </v-img>
+                <v-container class="my-auto">{{
+                  game.description
+                }}</v-container>
               </div>
               <v-img
-                width="255"
-                :aspect-ratio="5 / 7"
-                :src="`../img/1/` + game.title + `.jpg`"
+                max-width="420"
+                :src="`../img/1/` + game.title + `.gif`"
+                class="mx-auto"
               >
               </v-img>
             </div>

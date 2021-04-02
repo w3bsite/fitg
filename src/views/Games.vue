@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import GetGames from "../components/GetGames.vue";
+import GetGames from "../components/Globals/GetGames.vue";
 export default {
   name: "games",
   components: { GetGames },

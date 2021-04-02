@@ -34,7 +34,12 @@ const routes = [
   {
     path: "/redirect",
     name: "redirect",
-    component: () => import("../components/redirect"),
+    component: () => import("../components/register/redirect"),
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: () => import("../views/register"),
   },
   {
     path: "/test",

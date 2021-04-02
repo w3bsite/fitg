@@ -55,6 +55,7 @@ export default {
           password: this.password,
           email: this.email,
         },
+        auto: false,
       };
     },
   },

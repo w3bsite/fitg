@@ -1,5 +1,10 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div>
+    <h2>{{ name }}</h2>
   </div>
 </template>
+<script>
+export default {
+  name: this.$route.path,
+};
+</script>

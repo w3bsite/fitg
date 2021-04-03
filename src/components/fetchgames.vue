@@ -183,7 +183,7 @@ export default {
         prefetch: true,
         url: this.$url,
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjgsImlhdCI6MTYxNzQwODYxNCwiZXhwIjoxNjIwMDAwNjE0fQ.ECHnNlSOxmh8E8mKlqyAPTD_TavMxoABFfdNld7feJA`,
+          Authorization: `Bearer ${this.$cookies.get("jwt")}`,
         },
         params: {
           // caption_contains: this.genre,

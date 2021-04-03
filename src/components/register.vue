@@ -13,7 +13,6 @@
           <signin></signin>
         </v-tab-item>
       </v-tabs-items>
-      <v-card color="purple">{{ coo }}</v-card>
     </v-container>
   </div>
 </template>

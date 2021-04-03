@@ -1,55 +1,72 @@
 <template>
-  <div>
-    <v-container style="max-width: 350px">
-      <v-tabs centered grow v-model="tab">
-        <v-tab>register </v-tab>
-        <v-tab> login</v-tab>
-      </v-tabs>
-      <v-tabs-items style="max-width: 350px" v-model="tab">
-        <v-tab-item>
-          <signup></signup>
-        </v-tab-item>
-        <v-tab-item>
-          <signin></signin>
-        </v-tab-item>
-      </v-tabs-items>
-    </v-container>
-  </div>
+  <v-container field>
+    <v-row class="">
+      <v-card class="mx-auto pa-5">
+        <span v-if="e">{{ e }}</span>
+        <span v-if="jwt">{{ jwt }}</span>
+        <v-form @submit="signup()">
+          <v-col>
+            <v-text-field
+              v-model="username"
+              :rules="Rules"
+              label="username"
+              append-icon="mdi-face"
+              required
+            ></v-text-field>
+            {{ username }}
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="E-mail"
+              append-icon="mdi-at"
+              required
+            ></v-text-field>
+            {{ password }}
+            <v-text-field
+              v-model="password"
+              label="Password"
+              :rules="Rules"
+              hide-details="auto"
+              append-icon="mdi-lock"
+              required
+            >
+              {{ email }}
+            </v-text-field>
+          </v-col>
+          <v-card-actions dir="rtl">
+            <v-btn type="submit">Submit</v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import Signin from "./register/signin.vue";
-import signup from "./register/signup.vue";
 export default {
-  components: { signup, Signin },
   mounted() {},
-  chimera: {
-    signin() {
-      return {
-        url: this.$urlroot + `/auth/local`,
+  methods: {
+    signup: function () {
+      this.$axios({
         method: "post",
-        params: {
-          identifier: this.username,
+        url: this.$urlroot + `/auth/local/register`,
+        data: {
+          username: this.username,
           password: this.password,
+          email: this.email,
         },
-      };
+      })
+        .then((r) => (this.jwt = r.data.jwt))
+        .catch((e) => (this.e = e));
     },
   },
-  computed: {
-    jwt() {
-      if (this.$chimera.signin.status == 200) {
-        this.$cookies.set("jwt", this.$chimera.signin.data.jwt);
-        console.log(this.$cookies.get("jwt"));
-        return this.$chimera.signin.data.jwt;
-      } else {
-        return "";
-      }
-    },
-  },
+
+  computed: {},
   watch: {},
   data() {
     return {
-      tab: "",
+      e: null,
+      jwt: null,
       valid: false,
       username: "",
       email: "",

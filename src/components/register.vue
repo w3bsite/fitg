@@ -13,6 +13,7 @@
           <signin></signin>
         </v-tab-item>
       </v-tabs-items>
+      <v-card color="purple">{{ coo }}</v-card>
     </v-container>
   </div>
 </template>
@@ -22,31 +23,7 @@ import Signin from "./register/signin.vue";
 import signup from "./register/signup.vue";
 export default {
   components: { signup, Signin },
-  mounted() {},
-  chimera: {
-    signin() {
-      return {
-        url: this.$urlroot + `/auth/local`,
-        method: "post",
-        params: {
-          identifier: this.username,
-          password: this.password,
-        },
-      };
-    },
-  },
-  computed: {
-    jwt() {
-      if (this.$chimera.signin.status == 200) {
-        this.$cookies.set("jwt", this.$chimera.signin.data.jwt);
-        console.log(this.$cookies.get("jwt"));
-        return this.$chimera.signin.data.jwt;
-      } else {
-        return "";
-      }
-    },
-  },
-  watch: {},
+
   data() {
     return {
       tab: "",
@@ -54,16 +31,6 @@ export default {
       username: "",
       email: "",
       password: "",
-      emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+./.test(v) || "E-mail must be valid",
-      ],
-      Rules: [
-        (v) => !!v || "Password is required",
-        (value) =>
-          (value && value.length >= 3) ||
-          "Password must be at least 6 characters",
-      ],
     };
   },
 };

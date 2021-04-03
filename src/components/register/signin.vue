@@ -1,10 +1,13 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-card class="mx-auto pa-5 d-flex flex-column">
-        <span v-if="signin.error" class="spinner">{{ signin.error }}</span>
-
-        <v-form @submit="signin.send()">
+  <v-container field>
+    <v-row class="">
+      <v-card class="d-flex flex-column mx-auto pa-5">
+        <span v-if="e">{{ e }}</span>
+        <span v-if="jwt">{{ jwt }}</span>
+        <v-card color="purple">
+          {{ coo }}
+        </v-card>
+        <v-form @submit="signin()">
           <v-col>
             <v-text-field
               v-model="username"
@@ -22,16 +25,15 @@
               append-icon="mdi-lock"
               required
             >
-              {{ email }}
             </v-text-field>
           </v-col>
           <v-card-actions dir="rtl">
-            <v-btn type="submit">Submit</v-btn>
+            <v-btn type="submit" block>Submit</v-btn>
           </v-card-actions>
         </v-form>
         <v-divider></v-divider>
         <p class="mx-auto text-h6">OR</p>
-        <v-btn class="" :href="this.$urllog" color="red"
+        <v-btn :href="this.$urllog" color="red"
           ><v-icon>mdi-google</v-icon>oogle Login
         </v-btn>
       </v-card>
@@ -41,34 +43,39 @@
 
 <script>
 export default {
-  mounted() {},
-  chimera: {
-    signin() {
-      return {
-        url: this.$urlroot + `/auth/local`,
+  mounted() {
+    this.$cookies.remove("jwt");
+  },
+  methods: {
+    signin: function () {
+      this.$axios({
         method: "post",
-        params: {
+        url: this.$urlroot + `/auth/local`,
+        data: {
           identifier: this.username,
           password: this.password,
         },
-      };
+      })
+        .then((r) => {
+          let x = r.data.jwt;
+          this.$cookies.set("jwt", x);
+          this.jwt = x;
+        })
+
+        .catch((e) => (this.e = e));
     },
   },
   computed: {
-    jwt() {
-      if (this.$chimera.signin.status == 200) {
-        this.$cookies.set("jwt", this.$chimera.signin.data.jwt);
-        console.log(this.$cookies.get("jwt"));
-        return this.$chimera.signin.data.jwt;
-      } else {
-        return "";
-      }
+    coo() {
+      return this.$cookies.get("jwt");
     },
   },
-  watch: {},
   data() {
     return {
+      e: null,
+      jwt: null,
       valid: false,
+
       username: "",
       email: "",
       password: "",
@@ -87,5 +94,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

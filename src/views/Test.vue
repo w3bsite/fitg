@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Test from "../components/test";
+import Test from "../components/register";
 export default {
   components: { Test },
   name: "test",

@@ -28,7 +28,7 @@ export default {
       return {
         url: this.$url,
         headers: {
-          Authorization: `Bearer ${this.$cookies.get("jwt")}`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjgsImlhdCI6MTYxNzQwODYxNCwiZXhwIjoxNjIwMDAwNjE0fQ.ECHnNlSOxmh8E8mKlqyAPTD_TavMxoABFfdNld7feJA`,
         },
       };
     },

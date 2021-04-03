@@ -2,9 +2,9 @@
   <v-container field>
     <v-row class="">
       <v-card class="mx-auto pa-5">
-        <span v-if="signup.error" class="spinner">{{ signup.error }}</span>
-
-        <v-form @submit="signup.send()">
+        <span v-if="e">{{ e }}</span>
+        <span v-if="jwt">{{ jwt }}</span>
+        <v-form @submit="signup()">
           <v-col>
             <v-text-field
               v-model="username"
@@ -34,7 +34,7 @@
             </v-text-field>
           </v-col>
           <v-card-actions dir="rtl">
-            <v-btn type="submit">Submit</v-btn>
+            <v-btn type="submit" block>Submit</v-btn>
           </v-card-actions>
         </v-form>
       </v-card>
@@ -45,34 +45,26 @@
 <script>
 export default {
   mounted() {},
-  chimera: {
-    signup() {
-      return {
-        url: this.$urlroot + `/auth/local/register`,
+  methods: {
+    signup: function () {
+      this.$axios({
         method: "post",
-        params: {
+        url: this.$urlroot + `/auth/local/register`,
+        data: {
           username: this.username,
           password: this.password,
           email: this.email,
         },
-        auto: false,
-      };
+      })
+        .then((r) => (this.jwt = r.data.jwt))
+        .catch((e) => (this.e = e));
     },
   },
-  computed: {
-    jwt() {
-      if (this.$chimera.signup.status == 200) {
-        this.$cookies.set("jwt", this.$chimera.signup.data.jwt);
-        console.log(this.$cookies.get("jwt"));
-        return this.$chimera.signup.data.jwt;
-      } else {
-        return "";
-      }
-    },
-  },
-  watch: {},
+
   data() {
     return {
+      e: null,
+      jwt: null,
       valid: false,
       username: "",
       email: "",

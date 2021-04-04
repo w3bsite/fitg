@@ -173,7 +173,7 @@ export default {
     return {
       url: "/articles",
       preview: false,
-      x: {},
+      x: {}
     };
   },
   computed: {},
@@ -185,18 +185,18 @@ export default {
     }
   },
   methods: {
-    sub: function () {
+    sub: function() {
       this.$axios
         .post(this.url, this.x, {
           headers: {
-            Authorization: "Bearer" + " " + this.coo.jwt,
-          },
+            Authorization: "Bearer" + " " + this.coo.jwt
+          }
         })
-        .then((r) => {
+        .then(r => {
           this.res = r;
           console.log(r.data);
         });
-    },
-  },
+    }
+  }
 };
 </script>

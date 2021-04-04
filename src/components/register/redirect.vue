@@ -19,12 +19,12 @@ export default {
     setTimeout(() => this.$router.push({ name: "Home" }), 5000);
   },
   methods: {
-    token: function () {
+    token: function() {
       this.$axios
         .get(
           `${this.$urlroot}/auth/google/callback?access_token=${this.$route.query.access_token}`
         )
-        .then((res) => {
+        .then(res => {
           if (res.status == 200) {
             this.resp = res.data;
             this.jwt = this.resp.jwt;
@@ -34,10 +34,9 @@ export default {
           }
         })
         .then();
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

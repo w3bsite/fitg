@@ -10,6 +10,7 @@
         <Relatedalert :title="game.title"></Relatedalert>
         <relatedslide
           style="direction: ltr"
+          :game="game"
           :Genre="this.game.caption"
           :id="this.game.id"
         ></relatedslide>
@@ -53,5 +54,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

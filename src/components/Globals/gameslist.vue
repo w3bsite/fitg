@@ -43,7 +43,7 @@
               class="text-body-1"
               :class="{
                 'white--text': theme,
-                'grey--text text--darken-4': !theme,
+                'grey--text text--darken-4': !theme
               }"
               style="font-size: 14px !important"
             >
@@ -54,7 +54,7 @@
                 large
                 :to="{
                   name: 'single',
-                  params: { id: game.id, single: game },
+                  params: { id: game.id, single: game }
                 }"
                 dark
                 :color="theme ? 'red  accent-4' : 'deep-purple accent-4'"
@@ -83,10 +83,9 @@ export default {
     filter: { default: "2010", type: String },
     genre: { default: " ", type: String },
     games: { type: Object },
-    value: { type: Array },
-  },
+    value: { type: Array }
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

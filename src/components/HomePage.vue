@@ -1,17 +1,21 @@
 <template>
   <div>
-    <v-container class="" v-if="apig.data" fluid>
-      <topslider :games="apig.data"></topslider>
-    </v-container>
-
-    <v-container fluid>
-      <v-sheet outlined>
-        <v-row align="center">
-          <v-col class="mx-auto" cols="12" sm="12">
-            <fetchgames></fetchgames> </v-col
-        ></v-row>
-      </v-sheet>
-    </v-container>
+    <v-fade-transition>
+      <v-container class="" v-if="apig.data" fluid>
+        <topslider :games="apig.data"></topslider>
+      </v-container>
+    </v-fade-transition>
+    <v-fade-transition>
+      <v-container v-if="apig.data" fluid>
+        <v-sheet outlined>
+          <v-row align="center">
+            <v-col class="mx-auto" cols="12" sm="12">
+              <fetchgames></fetchgames>
+            </v-col>
+          </v-row>
+        </v-sheet>
+      </v-container>
+    </v-fade-transition>
   </div>
 </template>
 
@@ -23,12 +27,19 @@ export default {
     return { items: ["اکشن", "اول شخص", "شوتر", "ورزشی", "RPG"], genre: "ا" };
   },
   components: { topslider, fetchgames },
+  computed: {
+    auth() {
+      return this.$cookies.get("jwt")
+        ? `Bearer ${this.$cookies.get("jwt")}`
+        : "";
+    },
+  },
   chimera: {
     apig() {
       return {
         url: this.$url,
         headers: {
-          Authorization: `Bearer ${this.$cookies.get("jwt")}`,
+          Authorization: `${this.auth}`,
         },
       };
     },

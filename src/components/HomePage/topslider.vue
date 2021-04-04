@@ -37,10 +37,7 @@
       </v-carousel-item>
     </v-carousel>
   </v-card>
-</template> 
-
-
-
+</template>
 
 <script>
 export default {
@@ -51,10 +48,9 @@ export default {
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? true : false;
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

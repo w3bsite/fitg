@@ -3,9 +3,7 @@
     <v-container fluid>
       <v-row>
         <div v-for="(r, i) in related.data" :key="i">
-          <div
-            :class="{ 'red d-none': hide == r.id, 'col-12': hide != r.id }"
-          >
+          <div :class="{ 'red d-none': hide == r.id, 'col-12': hide != r.id }">
             <v-sheet elevation="5" class="d-flex flex-column mx-auto">
               <v-sheet>
                 <v-img :src="`/img/1/` + r.title + `.jpg`"></v-img>
@@ -30,7 +28,7 @@ export default {
       t1: null,
       t2: null,
       srch: null,
-      hide: this.id,
+      hide: this.id
     };
   },
   created() {
@@ -39,7 +37,7 @@ export default {
   chimera: {
     related() {
       return { url: this.ur };
-    },
+    }
   },
   computed: {
     ur() {
@@ -51,16 +49,16 @@ export default {
           _or: [
             [{ caption_contains: (this.t1, this.t2) }],
             [{ caption_contains: (this.t2, this.t3) }],
-            [{ caption_contains: (this.t3, this.t4) }],
-          ],
-        },
+            [{ caption_contains: (this.t3, this.t4) }]
+          ]
+        }
       };
       return this.$qs.stringify(params);
-    },
+    }
   },
 
   methods: {
-    filter: function () {
+    filter: function() {
       let x = this.Genre;
       let query = x.split("،")[0];
       let query1 = x.split("،")[1];
@@ -70,8 +68,8 @@ export default {
       this.t2 = query1;
       this.t3 = query2;
       this.t4 = query3;
-    },
-  },
+    }
+  }
 };
 </script>
 

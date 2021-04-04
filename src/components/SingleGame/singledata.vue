@@ -40,9 +40,8 @@
 import singletags from "./singletags.vue";
 export default {
   components: { singletags },
-  props: { game: { type: Object } },
+  props: { game: { type: Object } }
 };
 </script>
 
-<style>
-</style>
+<style></style>

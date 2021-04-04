@@ -26,7 +26,7 @@ export default {
       data: [],
       page: "games",
       secret: "vsnic0i0xumn78hi50ztw4147ebpgm",
-      id: "abyevj5ess9i95jl9cjvwtln59xvmfabyevj5ess9i95jl9cjvwtln59xvmf",
+      id: "abyevj5ess9i95jl9cjvwtln59xvmfabyevj5ess9i95jl9cjvwtln59xvmf"
     };
   },
   created() {
@@ -36,8 +36,8 @@ export default {
     this.get();
   },
   methods: {
-    get: function () {},
-  },
+    get: function() {}
+  }
 };
 </script>
 

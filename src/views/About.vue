@@ -5,6 +5,6 @@
 </template>
 <script>
 export default {
-  name: this.$route.path,
+  name: this.$route.path
 };
 </script>

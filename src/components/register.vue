@@ -29,11 +29,10 @@ export default {
       valid: false,
       username: "",
       email: "",
-      password: "",
+      password: ""
     };
-  },
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

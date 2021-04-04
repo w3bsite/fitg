@@ -78,9 +78,8 @@ export default {
   props: { game: { type: Object } },
   mounted() {
     console.log(this.game.number / 4);
-  },
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

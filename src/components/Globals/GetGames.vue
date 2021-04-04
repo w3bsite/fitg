@@ -69,7 +69,7 @@
                     large
                     :to="{
                       name: 'single',
-                      params: { id: g.id, single: g },
+                      params: { id: g.id, single: g }
                     }"
                     :color="theme ? 'pink accent-4' : 'red accent-4'"
                     depressed
@@ -103,7 +103,7 @@ export default {
     cmd: { default: 4, type: Number },
     clg: { default: 4, type: Number },
     cwidth: { default: 255, type: Number },
-    cratio: { default: 5 / 7, type: Number },
+    cratio: { default: 5 / 7, type: Number }
   },
   beforeCreate() {
     console.log(this.$url);
@@ -114,7 +114,7 @@ export default {
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? true : false;
-    },
+    }
   },
   chimera: {
     games() {
@@ -125,14 +125,14 @@ export default {
         "&_limit=" +
         this.limit
       );
-    },
+    }
   },
   data() {
     return {
       page: 1,
-      limit: 6,
+      limit: 6
     };
-  },
+  }
 };
 </script>
 <style>

@@ -29,23 +29,23 @@ export default {
         client_secret: "egn1px185b10muvw2433xhc3bacs9u",
 
         grant_type: "client_credentials",
-        access_token: "dpvs4h9n7huzzky3roruhh8kmkhxzz",
-      },
-    };  
+        access_token: "dpvs4h9n7huzzky3roruhh8kmkhxzz"
+      }
+    };
   },
   mounted() {},
   methods: {
-    ig: function () {
+    ig: function() {
       axios
         .post(this.gurl, {
           Authorization: "Bearer " + `${this.data.access_token}`,
           "Client-ID": `${this.data.client_id}`,
-          fields: "*",
+          fields: "*"
         })
-        .then((r) => (this.items = r.data));
+        .then(r => (this.items = r.data));
     },
 
-    gt: function () {
+    gt: function() {
       axios
         .post(
           this.url +
@@ -53,13 +53,13 @@ export default {
             `client_secret=${this.data.client_secret}&` +
             `grant_type=${this.data.grant_type}`
         )
-        .then((r) => {
+        .then(r => {
           this.res = r.data;
           console.log(r.data);
         })
-        .catch((e) => (this.er = e));
-    },
-  },
+        .catch(e => (this.er = e));
+    }
+  }
 };
 </script>
 

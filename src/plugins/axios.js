@@ -7,10 +7,10 @@ Vue.prototype.$urllog = "https://corvirus.herokuapp.com/connect/google";
 
 Vue.prototype.$axios = axios.create({});
 Vue.prototype.$cor = axios.create({
-  baseURL: "https://corvirus.herokuapp.com/products/",
+  baseURL: "https://corvirus.herokuapp.com/products/"
 });
 Vue.prototype.$axiosqs = axios.create({
-  baseURL: "https://corvirus.herokuapp.com/products",
+  baseURL: "https://corvirus.herokuapp.com/products"
   // paramsSerializer: params => {
   //   return qs.stringify(params);
   // }

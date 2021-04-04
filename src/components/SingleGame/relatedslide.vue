@@ -1,6 +1,9 @@
 <template>
   <div>
     <v-container fluid>
+      <v-btn>{{ id }}</v-btn>
+      <v-btn>{{ game.caption }}</v-btn>
+
       <v-slide-group
         v-model="model"
         active-class="activeitem"
@@ -67,8 +70,7 @@ export default {
   data() {
     return {
       model: 0,
-      t1: null,
-      t2: null,
+      t: [],
       srch: null,
       hide: this.id,
       alert: true,
@@ -82,16 +84,22 @@ export default {
       return { url: this.ur };
     },
   },
+
   computed: {
     ur() {
       return this.$url + "?" + this.qss;
     },
+
     qss() {
       let params = {
         _where: {
           _or: [
-            [{ caption_contains: (this.t1, this.t2, this.t3, this.t4) }],
-            [{ caption_contains: this.t1 }],
+            [
+              {
+                caption_contains: (this.t[0], this.t[1], this.t[2], this.t[3]),
+              },
+            ],
+            [{ caption_contains: (this.t[0], this.t[1]) }],
           ],
         },
       };
@@ -101,20 +109,17 @@ export default {
 
   methods: {
     filter: function () {
-      let x = this.Genre;
+      let x = this.game.caption;
       let query = x.split("،")[0];
       let query1 = x.split("،")[1];
       let query2 = x.split("،")[2];
       let query3 = x.split("،")[3];
-
-      this.t1 = query;
-      this.t2 = query1;
-      this.t3 = query2;
-      this.t4 = query3;
-      console.log(this.t1);
-      console.log(this.t2);
-      console.log(this.t3);
-      console.log(this.t4);
+      return (this.t = [query, query1, query2, query3]);
+    },
+  },
+  watch: {
+    game() {
+      this.filter();
     },
   },
 };

@@ -52,7 +52,7 @@ export default {
       er: null,
       items: ["اکشن", "اول شخص", "شوتر", "ورزشی", "RPG", " "],
       page: 1,
-      limit: "6",
+      limit: "6"
     };
   },
   chimera: {
@@ -63,13 +63,12 @@ export default {
           caption_contains: this.genre,
           _sort: this.sort + `:` + this.assend,
           _start: (this.page - 1) * this.limit,
-          _limit: this.limit,
-        },
+          _limit: this.limit
+        }
       };
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -8,7 +8,14 @@ import "./plugins/chimera";
 import "./plugins/asynccomputed";
 import "./plugins/qs";
 import "./plugins/vuecookies";
-
+import "./registerServiceWorker";
+export const EventBus = new Vue({
+  methods: {
+    change(event) {
+      this.$emit("cl", event);
+    },
+  },
+});
 new Vue({
   router,
   vuetify,

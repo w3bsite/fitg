@@ -39,37 +39,37 @@ export default {
       er: "",
       domain:
         "https://sabz.herokuapp.com/https://www.dlfox.com/wp-json/wp/v2/posts?per_page=12&page=",
-      page: 1,
+      page: 1
     };
   },
   computed: {
     URL() {
       return this.domain + this.page;
-    },
+    }
   },
   filters: {
-    substr: function (value) {
+    substr: function(value) {
       if (!value) return "";
       value = value.toString();
       return value.substring(0, 200);
-    },
+    }
   },
   methods: {
-    fetchGames: function () {
+    fetchGames: function() {
       this.$http()
-        .then((r) => (this.Games = r.data))
+        .then(r => (this.Games = r.data))
 
-        .catch((e) => (this.er = e));
+        .catch(e => (this.er = e));
     },
-    gett: function () {
+    gett: function() {
       fetch(this.domain + this.page)
-        .then((r) => (this.json = r.json()))
-        .then((json) => {
+        .then(r => (this.json = r.json()))
+        .then(json => {
           for (const key in json) {
             if (Object.hasOwnProperty.call(json, key)) {
               const element = json[key];
               this.Games.push(element);
-              this.Games.forEach((el) => {
+              this.Games.forEach(el => {
                 el.name = element.title.rendered;
                 el.short = element.excerpt;
                 el.desc = element.content.rendered;
@@ -78,16 +78,16 @@ export default {
             }
           }
         });
-    },
+    }
   },
   created() {
     this.gett();
   },
-  mounted() {},
+  mounted() {}
 };
 </script>
 
-<style >
+<style>
 div > p:last-child {
   display: none;
 }

@@ -65,44 +65,44 @@ export default {
         {
           icon: "mdi-home",
           title: "Welcome",
-          to: "/",
+          to: "/"
         },
         {
           icon: "mdi-web",
           title: "Learn Web",
-          to: "/Web",
+          to: "/Web"
         },
         {
           icon: "mdi-chart-bubble",
           title: "Game news",
-          to: "/news",
+          to: "/news"
         },
 
         {
           icon: "mdi-apps",
           title: "Articles",
-          to: "/Articles",
+          to: "/Articles"
         },
         {
           icon: "mdi-gamepad-variant",
           title: "Games",
-          to: "/Games",
+          to: "/Games"
         },
         {
           icon: "mdi-test-tube",
           title: "Test",
-          to: "/Test",
-        },
-      ],
+          to: "/Test"
+        }
+      ]
     };
   },
   directives: {
     focus: {
       // directive definition
-      inserted: function (el) {
+      inserted: function(el) {
         el.focus();
-      },
-    },
+      }
+    }
   },
   computed: {
     mini() {
@@ -111,7 +111,7 @@ export default {
       } else {
         return false;
       }
-    },
+    }
   },
   // watch: {
   //   mini() {
@@ -126,6 +126,6 @@ export default {
       this.drawer = true;
       this.miniVariant = false;
     }
-  },
+  }
 };
 </script>

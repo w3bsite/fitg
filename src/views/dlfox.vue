@@ -36,10 +36,10 @@ export default {
       let x = rg.exec(value);
       let tip = x[2] ? ` x[2]` : x[1] ? ` x[1]` : "I Dont Know";
       return tip;
-    },
+    }
   },
   methods: {
-    reg: function (g) {
+    reg: function(g) {
       if (typeof g === "string" && g !== null) {
         let rg = /([٫۰۱۲۳۴۵۶۷۸۹]*) مگابایت|([٫۰۱۲۳۴۵۶۷۸۹]*) گیگابایت/giu;
         let x = rg.exec(g);
@@ -53,10 +53,10 @@ export default {
         console.log(g);
       }
     },
-    gt: function () {
+    gt: function() {
       this.$axios
         .get(this.url)
-        .then((r) => {
+        .then(r => {
           this.games = r.data;
           const obj = r.data;
           for (var i = 0; i < obj.length; i++) {
@@ -65,7 +65,7 @@ export default {
             // do something with fname
           }
         })
-        .then((e) => (this.er = e));
+        .then(e => (this.er = e));
     },
     funfilt(g) {
       let rg = /([٫۰۱۲۳۴۵۶۷۸۹]*) مگابایت|([٫۰۱۲۳۴۵۶۷۸۹]*) گیگابایت/giu;
@@ -74,7 +74,7 @@ export default {
 
       let tip = x[2] ? x[2] : x[1] ? x[1] : "I Dont Know";
       console.log(tip);
-    },
+    }
   },
   data() {
     return {
@@ -85,11 +85,10 @@ export default {
       data: [],
       page: "",
       secret: "",
-      id: "",
+      id: ""
     };
-  },
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

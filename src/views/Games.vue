@@ -8,7 +8,7 @@
 import GetGames from "../components/Globals/GetGames.vue";
 export default {
   name: "games",
-  components: { GetGames },
+  components: { GetGames }
 };
 </script>
 

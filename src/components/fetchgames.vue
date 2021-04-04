@@ -1,5 +1,12 @@
 <template>
-  <v-container fluid>
+  <v-container
+    fluid
+    class=""
+    :class="{
+      ' ': theme,
+      ' grey lighten-3': !theme,
+    }"
+  >
     <v-row>
       <v-container fluid>
         <div class="text-center">
@@ -99,9 +106,9 @@
                               'white--text': theme,
                               'grey--text text--darken-4': !theme,
                             }"
-                            style="font-size: 14px !important"
+                            style="font-size: 13px !important"
                           >
-                            {{ game.description.substring(0, 410) + "..." }}
+                            {{ game.description.substring(0, 422) + "..." }}
                           </v-card-text>
                           <v-card-actions style="direction: ltr">
                             <v-btn
@@ -125,15 +132,6 @@
                   </v-col>
                 </v-row>
               </v-container>
-
-              <!-- <div class="text-center">
-        <v-pagination
-          :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
-          v-model="page"
-          :length="itotalpages"
-          class="mt-6"
-        ></v-pagination>
-      </div> -->
             </v-container>
             <v-sheet class="d-flex flex-column" width="" height="600" v-else>
               <v-progress-circular
@@ -183,7 +181,7 @@ export default {
         prefetch: true,
         url: this.$url,
         headers: {
-          Authorization: `Bearer ${this.$cookies.get("jwt")}`,
+          Authorization: `${this.auth}`,
         },
         params: {
           // caption_contains: this.genre,
@@ -196,6 +194,11 @@ export default {
   },
   methods: {},
   computed: {
+    auth() {
+      return this.$cookies.get("jwt")
+        ? `Bearer ${this.$cookies.get("jwt")}`
+        : "";
+    },
     ipage() {
       return (this.page - 1) * this.limit;
     },
@@ -223,7 +226,7 @@ export default {
       if (this.$chimera.games.data) {
         return this.games.data.filter(
           (e) =>
-            e.caption.includes(this.genre) &&
+            (e.caption.includes([this.genre]) || e.caption.includes("ورزشی")) &&
             (e.num1 > this.value[0] || e.num1 == this.value[0]) &&
             (e.num1 < this.value[1] || e.num1 == this.value[1])
         );

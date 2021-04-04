@@ -46,19 +46,19 @@
 export default {
   mounted() {},
   methods: {
-    signup: function () {
+    signup: function() {
       this.$axios({
         method: "post",
         url: this.$urlroot + `/auth/local/register`,
         data: {
           username: this.username,
           password: this.password,
-          email: this.email,
-        },
+          email: this.email
+        }
       })
-        .then((r) => (this.jwt = r.data.jwt))
-        .catch((e) => (this.e = e));
-    },
+        .then(r => (this.jwt = r.data.jwt))
+        .catch(e => (this.e = e));
+    }
   },
 
   data() {
@@ -70,19 +70,18 @@ export default {
       email: "",
       password: "",
       emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+./.test(v) || "E-mail must be valid",
+        v => !!v || "E-mail is required",
+        v => /.+@.+./.test(v) || "E-mail must be valid"
       ],
       Rules: [
-        (v) => !!v || "Password is required",
-        (value) =>
+        v => !!v || "Password is required",
+        value =>
           (value && value.length >= 3) ||
-          "Password must be at least 6 characters",
-      ],
+          "Password must be at least 6 characters"
+      ]
     };
-  },
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

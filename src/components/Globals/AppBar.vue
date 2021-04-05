@@ -1,6 +1,7 @@
 <template>
   <v-app dark>
     <v-navigation-drawer
+      style="height: 100% !important"
       v-model="drawer"
       :mini-variant="!miniVariant"
       :clipped="clipped"
@@ -41,19 +42,39 @@
 
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <v-menu
+        v-model="menu"
+        :close-on-click="false"
+        :close-on-content-click="false"
+        :nudge-width="500"
+        offset-y
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn v-bind="attrs" v-on="on" icon>
+            <v-icon>mdi-cart</v-icon></v-btn
+          >
+        </template>
+        <v-list>
+          <cartest></cartest>
+        </v-list>
+      </v-menu>
     </v-app-bar>
     <slot> </slot>
 
-    <v-footer absolute app>
+    <!-- <v-footer absolute app>
       <span v-focus>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
 <script>
+import cartest from "../cartest.vue";
 export default {
+  components: { cartest },
+
   data() {
     return {
+      menu: true,
       clipped: false,
       drawer: false,
       fixed: true,
@@ -65,44 +86,44 @@ export default {
         {
           icon: "mdi-home",
           title: "Welcome",
-          to: "/"
+          to: "/",
         },
         {
           icon: "mdi-web",
           title: "Learn Web",
-          to: "/Web"
+          to: "/Web",
         },
         {
           icon: "mdi-chart-bubble",
           title: "Game news",
-          to: "/news"
+          to: "/news",
         },
 
         {
           icon: "mdi-apps",
           title: "Articles",
-          to: "/Articles"
+          to: "/Articles",
         },
         {
           icon: "mdi-gamepad-variant",
           title: "Games",
-          to: "/Games"
+          to: "/Games",
         },
         {
           icon: "mdi-test-tube",
           title: "Test",
-          to: "/Test"
-        }
-      ]
+          to: "/Test",
+        },
+      ],
     };
   },
   directives: {
     focus: {
       // directive definition
-      inserted: function(el) {
+      inserted: function (el) {
         el.focus();
-      }
-    }
+      },
+    },
   },
   computed: {
     mini() {
@@ -111,7 +132,7 @@ export default {
       } else {
         return false;
       }
-    }
+    },
   },
   // watch: {
   //   mini() {
@@ -126,6 +147,6 @@ export default {
       this.drawer = true;
       this.miniVariant = false;
     }
-  }
+  },
 };
 </script>

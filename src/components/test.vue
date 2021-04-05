@@ -1,89 +1,265 @@
 <template>
-  <v-container field>
-    <v-row class="">
-      <v-card class="mx-auto pa-5">
-        <span v-if="e">{{ e }}</span>
-        <span v-if="jwt">{{ jwt }}</span>
-        <v-form @submit="signup()">
-          <v-col>
-            <v-text-field
-              v-model="username"
-              :rules="Rules"
-              label="username"
-              append-icon="mdi-face"
-              required
-            ></v-text-field>
-            {{ username }}
-            <v-text-field
-              v-model="email"
-              :rules="emailRules"
-              label="E-mail"
-              append-icon="mdi-at"
-              required
-            ></v-text-field>
-            {{ password }}
-            <v-text-field
-              v-model="password"
-              label="Password"
-              :rules="Rules"
-              hide-details="auto"
-              append-icon="mdi-lock"
-              required
-            >
-              {{ email }}
-            </v-text-field>
+  <v-container
+    fluid
+    class=""
+    :class="{
+      ' ': theme,
+      ' grey lighten-3': !theme,
+    }"
+  >
+    <v-row>
+      <v-container fluid>
+        <div class="text-center">
+          <v-pagination
+            :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
+            v-model="page"
+            :length="itotalpages"
+            class="my-2"
+          ></v-pagination>
+        </div>
+        <v-row>
+          <v-col cols="12" sm="2">
+            <v-container fluid>
+              <v-row>
+                <v-col cols="12">
+                  <v-card>
+                    <v-card-text>
+                      <v-range-slider
+                        vertical
+                        v-model="value"
+                        :tick-labels="label"
+                        :max="2023"
+                        :min="2014"
+                        class="large-slider"
+                      ></v-range-slider>
+                    </v-card-text>
+                  </v-card>
+
+                  <v-select
+                    @input="page = 1"
+                    v-model="genre"
+                    :items="items"
+                    label="Genre"
+                  ></v-select>
+
+                  <!-- <v-banner color="purple" dark>{{ genre }}</v-banner> -->
+                </v-col>
+              </v-row>
+            </v-container>
           </v-col>
-          <v-card-actions dir="rtl">
-            <v-btn type="submit">Submit</v-btn>
-          </v-card-actions>
-        </v-form>
-      </v-card>
+          <v-col cols="12" sm="10">
+            <v-container v-if="finalgames" fluid>
+              <v-container fluid>
+                <v-row>
+                  <v-col
+                    v-for="(game, i) in finalgames"
+                    cols="12"
+                    sm="6"
+                    md="4"
+                    lg="4"
+                    :key="i"
+                    :class="{
+                      red: game.num1 < value[0] || game.num1 > value[1],
+                    }"
+                  >
+                    <v-card style="direction: rtl">
+                      <div>
+                        <v-card
+                          :color="
+                            theme ? 'deep-purple accent-4' : 'red  accent-4'
+                          "
+                          :elevation="0"
+                          class="rounded-0"
+                          dark
+                        >
+                          <div class="white">
+                            <v-img
+                              :eager="false"
+                              class="mx-auto"
+                              :width="cwidth"
+                              :aspect-ratio="cratio"
+                              :src="`/img/1/` + game.title + `.jpg`"
+                              :lazy-src="`/img/1/` + game.title + `.jpg`"
+                              alt="0"
+                            />
+                          </div>
+                          <v-card-title>
+                            <div
+                              class="text-h6"
+                              style="font-size: 18px !important"
+                            >
+                              {{
+                                game.title.length > "29"
+                                  ? game.title.substring(0, 29) + ".."
+                                  : game.title
+                              }}
+                            </div>
+                          </v-card-title>
+                        </v-card>
+                        <v-card
+                          :elevation="0"
+                          class="text-body-1 darken-4 desc"
+                        >
+                          <v-card-text
+                            class="text-body-1 text-right"
+                            :class="{
+                              'white--text': theme,
+                              'grey--text text--darken-4': !theme,
+                            }"
+                            style="font-size: 13px !important"
+                          >
+                            {{ game.description.substring(0, 450) + "..." }}
+                          </v-card-text>
+                          <v-card-actions style="direction: ltr">
+                            <v-btn
+                              large
+                              :to="{
+                                name: 'single',
+                                params: { id: game.id, single: game },
+                              }"
+                              dark
+                              :color="
+                                theme ? 'red  accent-4' : 'deep-purple accent-4'
+                              "
+                              class="text-body-1 font-weight-normal"
+                            >
+                              بیشتر
+                            </v-btn>
+                            <v-btn
+                              @click="buyg(game)"
+                              large
+                              dark
+                              :color="
+                                theme ? 'primary  accent-4' : 'pink accent-4'
+                              "
+                              class="text-body-1 font-weight-normal"
+                            >
+                              buy
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </div>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-container>
+            <v-sheet class="d-flex flex-column" width="" height="600" v-else>
+              <v-progress-circular
+                class="ma-auto"
+                size="100"
+                :width="3"
+                indeterminate
+              ></v-progress-circular>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { EventBus } from "../main.js";
 export default {
-  mounted() {},
-  methods: {
-    signup: function() {
-      this.$axios({
-        method: "post",
-        url: this.$urlroot + `/auth/local/register`,
-        data: {
-          username: this.username,
-          password: this.password,
-          email: this.email
-        }
-      })
-        .then(r => (this.jwt = r.data.jwt))
-        .catch(e => (this.e = e));
-    }
+  props: {
+    ccols: { default: 12, type: Number },
+    csm: { default: 6, type: Number },
+    cmd: { default: 4, type: Number },
+    clg: { default: 4, type: Number },
+    cwidth: { default: 255, type: Number },
+    cratio: { default: 5 / 7, type: Number },
   },
+  components: {},
 
-  computed: {},
-  watch: {},
   data() {
     return {
-      e: null,
-      jwt: null,
-      valid: false,
-      username: "",
-      email: "",
-      password: "",
-      emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+./.test(v) || "E-mail must be valid"
-      ],
-      Rules: [
-        v => !!v || "Password is required",
-        value =>
-          (value && value.length >= 3) ||
-          "Password must be at least 6 characters"
-      ]
+      value: [2014, 2023],
+      label: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+      genre: " ",
+      yeara: 2019,
+      yearb: 2021,
+      sort: "created_at",
+      assend: "desc",
+      er: null,
+      items: ["اکشن", "اول شخص", "شوتر", "ورزشی", "RPG", " "],
+      page: 1,
+      limit: 6,
     };
-  }
+  },
+  chimera: {
+    games() {
+      return {
+        prefetch: true,
+        url: this.$url,
+        headers: {
+          Authorization: `${this.auth}`,
+        },
+        params: {
+          // caption_contains: this.genre,
+          _sort: this.sort + `:` + this.assend,
+          // _start: (this.page - 1) * this.limit,
+          // _limit: this.limit,
+        },
+      };
+    },
+  },
+  methods: {
+    buyg(e) {
+      console.log(e);
+      EventBus.change(e);
+    },
+  },
+  computed: {
+    auth() {
+      return this.$cookies.get("jwt")
+        ? `Bearer ${this.$cookies.get("jwt")}`
+        : "";
+    },
+    ipage() {
+      return (this.page - 1) * this.limit;
+    },
+    ilimit() {
+      return this.ipage + this.limit;
+    },
+    itotal() {
+      if (this.$chimera.games.data) {
+        return this.filteredgames.length;
+      } else {
+        return null;
+      }
+    },
+    finalgames() {
+      if (this.$chimera.games.data) {
+        return this.filteredgames.slice(this.ipage, this.ilimit);
+      } else {
+        return null;
+      }
+    },
+    itotalpages() {
+      return this.itotal ? Math.ceil(this.itotal / this.limit) : null;
+    },
+    filteredgames() {
+      if (this.$chimera.games.data) {
+        return this.games.data.filter(
+          (e) =>
+            (e.caption.includes([this.genre]) || e.caption.includes("ورزشی")) &&
+            (e.num1 > this.value[0] || e.num1 == this.value[0]) &&
+            (e.num1 < this.value[1] || e.num1 == this.value[1])
+        );
+      } else {
+        return null;
+      }
+    },
+    theme() {
+      return this.$vuetify.theme.dark ? true : false;
+    },
+  },
 };
 </script>
 
-<style></style>
+<style>
+.v-slider {
+  height: 500px;
+}
+</style>

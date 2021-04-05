@@ -1,9 +1,6 @@
 <template>
   <div>
     <v-container fluid>
-      <v-btn>{{ id }}</v-btn>
-      <v-btn>{{ game.caption }}</v-btn>
-
       <v-slide-group
         v-model="model"
         active-class="activeitem"
@@ -65,7 +62,7 @@
 
 <script>
 export default {
-  props: ["Genre", "id"],
+  props: ["Genre", "id", "game"],
   name: "relatedgenre",
   data() {
     return {

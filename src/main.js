@@ -9,6 +9,8 @@ import "./plugins/asynccomputed";
 import "./plugins/qs";
 import "./plugins/vuecookies";
 
+Vue.config.productionTip = false;
+
 export const EventBus = new Vue({
   methods: {
     change(event) {

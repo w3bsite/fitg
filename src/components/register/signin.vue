@@ -72,8 +72,8 @@ export default {
   },
   data() {
     return {
-      e: [],
-      jwt: [],
+      e: null,
+      jwt: null,
       valid: false,
 
       username: "",

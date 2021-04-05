@@ -27,6 +27,10 @@
                 <v-btn
                   color="red  accent-4"
                   class="col-3 float-right text-body-1 font-weight-normal"
+                  :to="{
+                    name: 'single',
+                    params: { id: games[i - 1].id },
+                  }"
                 >
                   ادامه
                 </v-btn>
@@ -48,8 +52,8 @@ export default {
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? true : false;
-    }
-  }
+    },
+  },
 };
 </script>
 

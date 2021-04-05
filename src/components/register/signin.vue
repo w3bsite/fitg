@@ -7,7 +7,7 @@
         <v-card color="purple">
           {{ coo }}
         </v-card>
-        <v-form @submit="signin()">
+        <v-form @submit.prevent="signin">
           <v-col>
             <v-text-field
               v-model="username"
@@ -72,8 +72,8 @@ export default {
   },
   data() {
     return {
-      e: null,
-      jwt: null,
+      e: [],
+      jwt: [],
       valid: false,
 
       username: "",

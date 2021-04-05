@@ -1,10 +1,8 @@
 <template>
   <div>
-    <h2>{{ name }}</h2>
+    <h4>Articles</h4>
   </div>
 </template>
 <script>
-export default {
-  name: this.$route.path
-};
+export default {};
 </script>

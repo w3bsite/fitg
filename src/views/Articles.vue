@@ -31,8 +31,13 @@ export default {
         : " ";
     },
   },
-  // chimera: { users: "https://corvirus.herokuapp.com/users" },
-  created() {
+  // chimera: {
+  //   users: "https://corvirus.herokuapp.com/users",
+  //   headers: {
+  //     Authorization: `${this.auth}`,
+  //   },
+  // },
+  mounted() {
     this.$axios
       .get("https://corvirus.herokuapp.com/users", {
         headers: {

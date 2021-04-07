@@ -22,27 +22,27 @@
             <v-container fluid>
               <v-row>
                 <v-col cols="12">
-                  <v-card>
-                    <v-card-text>
-                      <v-range-slider
-                        vertical
-                        v-model="value"
-                        :tick-labels="label"
-                        :max="2023"
-                        :min="2014"
-                        class="large-slider"
-                      ></v-range-slider>
-                    </v-card-text>
+                  <v-card outlined elevation="1">
+                    <v-select
+                      @input="page = 1"
+                      v-model="genre"
+                      :items="items"
+                      :menu-props="{ down: true, offsetY: true }"
+                      label="Genre"
+                      outlined
+                    ></v-select>
+
+                    <v-alert color="indigo accent-4" outlined>Date</v-alert>
+                    <v-range-slider
+                      @input="page = 1"
+                      :vertical="range"
+                      v-model="value"
+                      :tick-labels="label"
+                      :max="2021"
+                      :min="2016"
+                      class="large-slider"
+                    ></v-range-slider>
                   </v-card>
-
-                  <v-select
-                    @input="page = 1"
-                    v-model="genre"
-                    :items="items"
-                    label="Genre"
-                  ></v-select>
-
-                  <!-- <v-banner color="purple" dark>{{ genre }}</v-banner> -->
                 </v-col>
               </v-row>
             </v-container>
@@ -62,7 +62,7 @@
                       red: game.num1 < value[0] || game.num1 > value[1],
                     }"
                   >
-                    <v-card style="direction: rtl">
+                    <v-card style="direction: rtl" outlined elevation="1">
                       <div>
                         <v-card
                           :color="
@@ -119,11 +119,23 @@
                               }"
                               dark
                               :color="
-                                theme ? 'red  accent-4' : 'deep-purple accent-4'
+                                theme ? 'deep-purple accent-4' : 'red  accent-4'
                               "
                               class="text-body-1 font-weight-normal"
                             >
                               بیشتر
+                            </v-btn>
+                            <v-btn
+                              @click="buyg(game)"
+                              :color="
+                                theme
+                                  ? 'white  black--text'
+                                  : 'black white--text'
+                              "
+                              class="text-body-1 font-weight-normal"
+                              fab
+                            >
+                              <v-icon> mdi-cart </v-icon>
                             </v-btn>
                           </v-card-actions>
                         </v-card>
@@ -143,12 +155,21 @@
             </v-sheet>
           </v-col>
         </v-row>
+        <div class="text-center">
+          <v-pagination
+            :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
+            v-model="page"
+            :length="itotalpages"
+            class="my-2"
+          ></v-pagination>
+        </div>
       </v-container>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { EventBus } from "../main.js";
 export default {
   props: {
     ccols: { default: 12, type: Number },
@@ -162,15 +183,15 @@ export default {
 
   data() {
     return {
-      value: [2014, 2023],
-      label: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+      value: [2016, 2021],
+      label: [2016, 2017, 2018, 2019, 2020, 2021],
       genre: " ",
       yeara: 2019,
       yearb: 2021,
       sort: "created_at",
       assend: "desc",
       er: null,
-      items: ["اکشن", "اول شخص", "شوتر", "ورزشی", "RPG", " "],
+      items: ["", "اکشن", "اول شخص", "شوتر", "ورزشی", "RPG"],
       page: 1,
       limit: 6,
     };
@@ -192,8 +213,16 @@ export default {
       };
     },
   },
-  methods: {},
+  methods: {
+    buyg(e) {
+      console.log(e);
+      EventBus.change(e);
+    },
+  },
   computed: {
+    range() {
+      return this.$vuetify.breakpoint.xs == true ? false : true;
+    },
     auth() {
       return this.$cookies.get("jwt")
         ? `Bearer ${this.$cookies.get("jwt")}`
@@ -241,8 +270,11 @@ export default {
 };
 </script>
 
-<style>
-.v-slider {
-  height: 500px;
-}
+<style lang="sass">
+@import '~vuetify/src/styles/styles.sass'
+
+@media #{map-get($display-breakpoints, 'sm-and-up')}
+  .v-slider
+    height: 420px
 </style>
+

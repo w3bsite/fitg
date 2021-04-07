@@ -7,7 +7,7 @@
         </v-img>
 
         <singledata :game="game" />
-        <Relatedalert :title="game.title"></Relatedalert>
+        <Relatedalert :title="game.title" :id="game.id"></Relatedalert>
         <relatedslide
           style="direction: ltr"
           :game="game"

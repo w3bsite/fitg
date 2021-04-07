@@ -76,6 +76,7 @@ export default {
   created() {
     this.filter();
   },
+
   chimera: {
     related() {
       return { url: this.ur };

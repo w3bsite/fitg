@@ -9,25 +9,45 @@
   >
     <v-row>
       <v-container fluid>
-        <div class="text-center">
-          <v-pagination
-            :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
-            v-model="page"
-            :length="itotalpages"
-            class="my-2"
-          ></v-pagination>
+        <v-pagination
+          :color="theme ? 'indigo accent-4 ' : 'indigo accent-4 '"
+          v-model="page"
+          :length="itotalpages"
+          class="mx-auto"
+        ></v-pagination>
+
+        <div class="d-flex flex-row-reverse my-0">
+          <div class="col-md-3">
+            <v-text-field
+              v-model="term"
+              :append-icon="term ? 'mdi-close' : ''"
+              @click:append="term = ''"
+            >
+              <template v-slot:label>
+                <v-icon style="vertical-align: middle"> mdi-magnify </v-icon>
+                search games by title
+              </template>
+            </v-text-field>
+          </div>
         </div>
         <v-row>
           <v-col cols="12" sm="2">
             <v-container fluid>
-              <v-row>
+              <v-spacer></v-spacer>
+              <div class="">
+                <v-select v-model="assend" :items="assending"></v-select>
+              </div>
+              <div class="">
+                <v-select v-model="sort" :items="sortitems"></v-select>
+              </div>
+              <v-row class="mt-1">
                 <v-col cols="12">
                   <v-card outlined elevation="1">
                     <v-select
                       @input="page = 1"
                       v-model="genre"
                       :items="items"
-                      :menu-props="{ down: true, offsetY: true }"
+                      :menu-props="{ down: true, offsetY: false }"
                       label="Genre"
                       outlined
                     ></v-select>
@@ -110,27 +130,30 @@
                           >
                             {{ game.description.substring(0, 422) + "..." }}
                           </v-card-text>
-                          <v-card-actions style="direction: ltr">
+                          <v-card-actions style="direction: rtl">
                             <v-btn
                               large
                               :to="{
                                 name: 'single',
                                 params: { id: game.id, single: game },
                               }"
-                              dark
                               :color="
-                                theme ? 'deep-purple accent-4' : 'red  accent-4'
+                                theme
+                                  ? 'white  black--text'
+                                  : 'red accent-4 white--text'
                               "
+                              outlined
                               class="text-body-1 font-weight-normal"
                             >
                               بیشتر
                             </v-btn>
+                            <v-spacer></v-spacer>
                             <v-btn
                               @click="buyg(game)"
                               :color="
                                 theme
                                   ? 'white  black--text'
-                                  : 'black white--text'
+                                  : 'indigo accent-4 white--text'
                               "
                               class="text-body-1 font-weight-normal"
                               fab
@@ -192,8 +215,11 @@ export default {
       assend: "desc",
       er: null,
       items: ["", "اکشن", "اول شخص", "شوتر", "ورزشی", "RPG"],
+      sortitems: ["created_at", "updated_at"],
+      assending: ["asc", "desc"],
       page: 1,
       limit: 6,
+      term: "",
     };
   },
   chimera: {
@@ -226,7 +252,7 @@ export default {
     auth() {
       return this.$cookies.get("jwt")
         ? `Bearer ${this.$cookies.get("jwt")}`
-        : "";
+        : " ";
     },
     ipage() {
       return (this.page - 1) * this.limit;
@@ -251,11 +277,14 @@ export default {
     itotalpages() {
       return this.itotal ? Math.ceil(this.itotal / this.limit) : null;
     },
+
     filteredgames() {
       if (this.$chimera.games.data) {
-        return this.games.data.filter(
+        let trm = new RegExp(this.term, "i");
+        return this.$chimera.games.data.filter(
           (e) =>
-            (e.caption.includes([this.genre]) || e.caption.includes("ورزشی")) &&
+            e.caption.includes([this.genre]) &&
+            e.title.match(trm) &&
             (e.num1 > this.value[0] || e.num1 == this.value[0]) &&
             (e.num1 < this.value[1] || e.num1 == this.value[1])
         );

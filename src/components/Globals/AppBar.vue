@@ -60,7 +60,7 @@
       </v-menu>
 
       <v-menu
-        v-model="register"
+        v-model="regist"
         :close-on-click="false"
         :close-on-content-click="false"
         :nudge-width="300"
@@ -68,11 +68,11 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn v-bind="attrs" v-on="on" icon>
-            <v-icon>mdi-close</v-icon></v-btn
+            <v-icon>mdi-face</v-icon></v-btn
           >
         </template>
         <v-list>
-          <register></register>
+          <Register></Register>
         </v-list>
       </v-menu>
     </v-app-bar>
@@ -92,7 +92,8 @@ export default {
 
   data() {
     return {
-      regist: true,
+      regist: false,
+
       menu: true,
       clipped: false,
       drawer: false,

@@ -10,7 +10,8 @@
               label="username"
               append-icon="mdi-face"
               required
-            ></v-text-field>
+            >
+            </v-text-field>
 
             <v-text-field
               v-model="password"

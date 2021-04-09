@@ -47,7 +47,7 @@
 export default {
   props: { games: { type: Array } },
   data() {
-    return { cycle: false };
+    return { cycle: true };
   },
   computed: {
     theme() {

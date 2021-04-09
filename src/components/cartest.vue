@@ -32,7 +32,7 @@
             v-else
             type="number"
             v-model="game.num2"
-            min="1"
+            :min="1"
             style="vertical-align: middle; max-width: 50px"
           >
           </v-text-field>
@@ -48,12 +48,12 @@
 
       <div class="d-flex flex-column">
         <v-spacer></v-spacer>
-        <v-card-actions class="mr-16 justify-end"
-          >{{ sum }} تعداد کل: عدد
+        <v-card-actions class="mr-16 justify-end">
+          {{ num }} تعداد کل: عدد
         </v-card-actions>
 
-        <v-card-actions class="mr-16 justify-end"
-          >{{ sum }} قیمت کل : تومان
+        <v-card-actions class="mr-16 justify-end">
+          {{ sum }} قیمت کل : تومان
         </v-card-actions>
       </div>
     </div>
@@ -72,6 +72,9 @@ export default {
         (sum, { number, num2 }) => sum + (number / 4) * 6000 * num2,
         0
       );
+    },
+    num() {
+      return this.cart.reduce((num, { num2 }) => num + parseInt(num2), 0);
     },
   },
   created() {

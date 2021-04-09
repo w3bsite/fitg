@@ -46,7 +46,7 @@
         v-model="menu"
         :close-on-click="false"
         :close-on-content-click="false"
-        :nudge-width="500"
+        :nudge-width="1000"
         offset-y
       >
         <template v-slot:activator="{ on, attrs }">
@@ -56,6 +56,23 @@
         </template>
         <v-list>
           <cartest></cartest>
+        </v-list>
+      </v-menu>
+
+      <v-menu
+        v-model="register"
+        :close-on-click="false"
+        :close-on-content-click="false"
+        :nudge-width="300"
+        offset-y
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn v-bind="attrs" v-on="on" icon>
+            <v-icon>mdi-close</v-icon></v-btn
+          >
+        </template>
+        <v-list>
+          <register></register>
         </v-list>
       </v-menu>
     </v-app-bar>
@@ -69,11 +86,13 @@
 
 <script>
 import cartest from "../cartest.vue";
+import Register from "../register.vue";
 export default {
-  components: { cartest },
+  components: { cartest, Register },
 
   data() {
     return {
+      regist: true,
       menu: true,
       clipped: false,
       drawer: false,

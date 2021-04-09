@@ -2,11 +2,6 @@
   <v-container field>
     <v-row class="">
       <v-card class="d-flex flex-column mx-auto pa-5">
-        <span v-if="e">{{ e }}</span>
-        <span v-if="jwt">{{ jwt }}</span>
-        <v-card color="purple">
-          {{ coo }}
-        </v-card>
         <v-form @submit.prevent="signin">
           <v-col>
             <v-text-field

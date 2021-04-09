@@ -15,16 +15,16 @@ export default {
     return { jwt: "", username: "", email: "" };
   },
   mounted() {
-    setTimeout(() => this.token(), 0.5);
-    setTimeout(() => this.$router.push({ name: "Home" }), 5000);
+    setTimeout(() => this.token(), 100);
+    setTimeout(() => this.$router.push({ name: "Home" }), 300);
   },
   methods: {
-    token: function() {
+    token: function () {
       this.$axios
         .get(
           `${this.$urlroot}/auth/google/callback?access_token=${this.$route.query.access_token}`
         )
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.resp = res.data;
             this.jwt = this.resp.jwt;
@@ -34,8 +34,8 @@ export default {
           }
         })
         .then();
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -2,7 +2,7 @@
   <div>
     <div v-for="(game, i) in cart" :key="i">
       <v-divider inset />
-      <v-list-item>
+      <v-list-item v-if="game.num2 > 0">
         <v-list-item-avatar>
           <v-img
             :src="`/img/1/` + game.title + `.jpg`"
@@ -14,7 +14,31 @@
           {{ game.title }}
         </v-list-item-title>
         <v-list-item-title class="ml-8">
-          <span class="text-body-2"> {{ (game.number / 4) * 6000 }} T</span>
+          <span class="text-body-2">
+            {{ (game.number / 4) * 6000 * game.num2 }} T</span
+          >
+        </v-list-item-title>
+        <v-list-item-title class="ml-8">
+          <span class="text-body-2"> {{ game.number * game.num2 }} Gig</span>
+        </v-list-item-title>
+        <v-list-item-title class="ml-8">
+          <span class="text-body-2">
+            {{ Math.round(game.number / 4) * game.num2 }} DVD</span
+          >
+        </v-list-item-title>
+        <v-list-item-title class="ml-8">
+          <span v-if="game.num2 == 1" class="text-body-2"> 1 عدد</span>
+          <v-text-field
+            v-else
+            type="number"
+            v-model="game.num2"
+            min="1"
+            style="vertical-align: middle; max-width: 50px"
+          >
+          </v-text-field>
+        </v-list-item-title>
+        <v-list-item-title>
+          <v-btn icon @click="game.num2 = 0"> <v-icon>mdi-close</v-icon></v-btn>
         </v-list-item-title>
       </v-list-item>
     </div>
@@ -45,14 +69,20 @@ export default {
   computed: {
     sum() {
       return this.cart.reduce(
-        (sum, { number }) => sum + (number / 4) * 6000,
+        (sum, { number, num2 }) => sum + (number / 4) * 6000 * num2,
         0
       );
     },
   },
   created() {
     EventBus.$on("cl", (e) => {
-      this.cart = [...this.cart, e];
+      if (this.cart) {
+        this.cart.includes(e)
+          ? e.num2++
+          : ((this.cart = [...this.cart, e]), (e.num2 = 1));
+      } else {
+        null;
+      }
     });
   },
 };

@@ -5,7 +5,7 @@
         <!-- Provides the application the proper gutter -->
         <v-container fluid>
           <keep-alive include="">
-            <router-view></router-view>
+            <router-view :jwt="jwt"></router-view>
           </keep-alive>
         </v-container>
       </v-main>
@@ -15,6 +15,7 @@
 
 <script>
 import AppBar from "@/components/Globals/AppBar.vue";
+import { EventBus } from "./main";
 
 export default {
   name: "App",
@@ -22,9 +23,13 @@ export default {
   components: { AppBar },
 
   data: () => ({
-    buss: [2],
+    jwt: "",
   }),
-  created() {},
+  created() {
+    EventBus.$on("jw", (e) => {
+      this.jwt = e;
+    });
+  },
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? " " : "grey lighten-2";

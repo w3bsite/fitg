@@ -94,7 +94,7 @@ export default {
     return {
       regist: false,
 
-      menu: true,
+      menu: false,
       clipped: false,
       drawer: false,
       fixed: true,
@@ -153,7 +153,11 @@ export default {
         return false;
       }
     },
+    signed() {
+      return this.$cookies.get("jwt") ? true : false;
+    },
   },
+
   // watch: {
   //   mini() {
   //     this.mini == true ? this.miniVariant == true : "";

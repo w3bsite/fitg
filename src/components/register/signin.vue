@@ -1,8 +1,11 @@
 <template>
   <v-container field>
     <v-row class="">
-      <v-card class="d-flex flex-column mx-auto pa-5">
-        <v-form @submit.prevent="signin">
+      <v-card
+        v-if="!this.$cookies.get('jwt')"
+        class="d-flex flex-column mx-auto pa-5"
+      >
+        <v-form @submit.prevent="signin.fetch">
           <v-col>
             <v-text-field
               v-model="username"
@@ -29,49 +32,69 @@
         </v-form>
         <v-divider></v-divider>
         <p class="mx-auto text-h6">OR</p>
-        <v-btn :href="this.$urllog" color="red"
+        <v-btn :href="$urllog" color="red"
           ><v-icon>mdi-google</v-icon>oogle Login
         </v-btn>
+      </v-card>
+      <v-card v-else class="d-flex flex-column mx-auto pa-5">
+        <v-btn @click="signou">logout</v-btn>
       </v-card>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { EventBus } from "../../main";
 export default {
-  mounted() {
-    this.$cookies.remove("jwt");
-  },
-  methods: {
-    signin: function () {
-      this.$axios({
+  chimera: {
+    signin() {
+      return {
         method: "post",
         url: this.$urlroot + `/auth/local`,
-        data: {
+        params: {
           identifier: this.username,
           password: this.password,
         },
-      })
-        .then((r) => {
-          let x = r.data.jwt;
-          this.$cookies.set("jwt", x);
-          this.jwt = x;
-        })
+        on: {
+          success() {
+            let x = this.signin.data.jwt;
+            this.$cookies.set("jwt", x);
+            this.jwt = x;
 
-        .catch((e) => (this.e = e));
+            EventBus.signing(x);
+          },
+        },
+      };
     },
   },
-  computed: {
-    coo() {
-      return this.$cookies.get("jwt");
+  methods: {
+    signou: function () {
+      this.$cookies.remove("jwt");
     },
+    // signin: function () {
+    //   this.$axios({
+    //     method: "post",
+    //     url: this.$urlroot + `/auth/local`,
+    //     data: {
+    //       identifier: this.username,
+    //       password: this.password,
+    //     },
+    //   })
+    //     .then((r) => {
+    //       let x = r.data.jwt;
+    //       this.$cookies.set("jwt", x);
+    //       this.jwt = x;
+    //     })
+    //     .catch((e) => (this.e = e));
+    // },
   },
+
   data() {
     return {
       e: null,
       jwt: null,
       valid: false,
-
+      show: true,
       username: "",
       email: "",
       password: "",

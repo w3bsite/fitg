@@ -11,24 +11,30 @@
         </v-list-item>
       </v-list>
     </v-card>
-    <v-card v-if="er">
+    <v-card v-else>
       {{ er }}
     </v-card>
   </div>
 </template>
 <script>
 export default {
+  props: ["jwt"],
   data() {
     return {
-      us: [],
-      er: [],
+      us: null,
+      er: null,
     };
+  },
+  created() {
+    this.gt();
   },
   computed: {
     auth() {
       return this.$cookies.get("jwt")
         ? ` bearer ${this.$cookies.get("jwt")}`
-        : " ";
+        : this.jwt
+        ? ` bearer ${this.jwt}`
+        : "";
     },
   },
   // chimera: {
@@ -37,15 +43,22 @@ export default {
   //     Authorization: `${this.auth}`,
   //   },
   // },
-  mounted() {
-    this.$axios
-      .get("https://corvirus.herokuapp.com/users", {
-        headers: {
-          Authorization: `${this.auth}`,
-        },
-      })
-      .then((r) => (this.us = r.data))
-      .catch((e) => (this.er = e));
+  methods: {
+    gt() {
+      this.$axios
+        .get("https://corvirus.herokuapp.com/users", {
+          headers: {
+            Authorization: `${this.auth}`,
+          },
+        })
+        .then((r) => (this.us = r.data))
+        .catch((e) => (this.er = e));
+    },
+  },
+  watch: {
+    auth() {
+      this.gt();
+    },
   },
 };
 </script>

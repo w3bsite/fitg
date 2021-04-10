@@ -16,6 +16,9 @@ export const EventBus = new Vue({
     change(event) {
       this.$emit("cl", event);
     },
+    signing(ev) {
+      this.$emit("jw", ev);
+    },
   },
 });
 new Vue({

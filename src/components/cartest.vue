@@ -1,6 +1,7 @@
 <template>
   <div>
     <div v-for="(game, i) in cart" :key="i">
+      <div>{{ empty }}</div>
       <v-divider inset />
       <v-list-item v-if="game.num2 > 0">
         <v-list-item-avatar>
@@ -38,7 +39,9 @@
           </v-text-field>
         </v-list-item-title>
         <v-list-item-title>
-          <v-btn icon @click="game.num2 = 0"> <v-icon>mdi-close</v-icon></v-btn>
+          <v-btn icon @click="game.num2 = 0">
+            <v-icon color="red">mdi-close</v-icon></v-btn
+          >
         </v-list-item-title>
       </v-list-item>
     </div>
@@ -64,7 +67,7 @@
 import { EventBus } from "../main.js";
 export default {
   data() {
-    return { cart: [] };
+    return { cart: [], empty: "" };
   },
   computed: {
     sum() {
@@ -84,7 +87,7 @@ export default {
           ? e.num2++
           : ((this.cart = [...this.cart, e]), (e.num2 = 1));
       } else {
-        null;
+        this.empty = "هنوز محصولی اضافه نکرده اید";
       }
     });
   },

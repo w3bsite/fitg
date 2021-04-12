@@ -11,8 +11,9 @@
         </v-list-item>
       </v-list>
     </v-card>
-    <v-card v-else>
-      {{ er }}
+    <v-card color="warning" v-else class="text-center">
+      {{ er.message }}
+      برای مشاهده کاربران لاگین کنید
     </v-card>
   </div>
 </template>

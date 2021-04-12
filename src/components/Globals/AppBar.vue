@@ -39,11 +39,17 @@
       <v-btn v-if="drawer" icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "left" : "right"}` }}</v-icon>
       </v-btn>
-
+      <v-img
+        class="mx-2"
+        src="@/assets/logo.png"
+        max-height="55"
+        max-width="55"
+        contain
+      ></v-img>
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-menu
-        v-model="menu"
+        v-model="crt"
         :close-on-click="false"
         :close-on-content-click="false"
         :nudge-width="1000"
@@ -94,7 +100,7 @@ export default {
     return {
       regist: false,
 
-      menu: false,
+      crt: false,
       clipped: false,
       drawer: false,
       fixed: true,
@@ -123,16 +129,6 @@ export default {
           icon: "mdi-apps",
           title: "Articles",
           to: "/Articles",
-        },
-        {
-          icon: "mdi-gamepad-variant",
-          title: "Games",
-          to: "/Games",
-        },
-        {
-          icon: "mdi-test-tube",
-          title: "Test",
-          to: "/Test",
         },
       ],
     };
@@ -163,7 +159,11 @@ export default {
   //     this.mini == true ? this.miniVariant == true : "";
   //   }
   // },
+  created() {
+    this.crt = true;
+  },
   mounted() {
+    this.crt = false;
     if (this.$vuetify.breakpoint.mobile == true) {
       this.drawer = false;
       this.miniVariant = true;

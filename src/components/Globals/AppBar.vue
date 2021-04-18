@@ -56,9 +56,16 @@
         offset-y
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" icon>
-            <v-icon>mdi-cart</v-icon></v-btn
-          >
+          <v-btn @click="notif = 0" v-bind="attrs" v-on="on" icon>
+            <v-badge
+              :content="notif"
+              :value="notif"
+              color="indigo accent-4"
+              overlap
+            >
+              <v-icon :large="notif ? true : false">mdi-cart</v-icon>
+            </v-badge>
+          </v-btn>
         </template>
         <v-list>
           <cartest></cartest>
@@ -67,7 +74,7 @@
 
       <v-menu
         v-model="regist"
-        :close-on-click="false"
+        :close-on-click="true"
         :close-on-content-click="false"
         :nudge-width="300"
         offset-y
@@ -91,6 +98,7 @@
 </template>
 
 <script>
+import { EventBus } from "../../main";
 import cartest from "../cartest.vue";
 import Register from "../register.vue";
 export default {
@@ -99,7 +107,7 @@ export default {
   data() {
     return {
       regist: false,
-
+      notif: 0,
       crt: false,
       clipped: false,
       drawer: false,
@@ -161,6 +169,9 @@ export default {
   // },
   created() {
     this.crt = true;
+    EventBus.$on("cl", () => {
+      this.notif++;
+    });
   },
   mounted() {
     this.crt = false;

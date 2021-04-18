@@ -1,6 +1,6 @@
 <template>
   <v-expand-x-transition>
-    <div v-if="game" style="direction: rtl">
+    <div v-if="game">
       <div>
         <v-img eager :src="`/img/1/1big/` + game.title + `.jpg`">
           <div class="fill-height repeating-gradient"></div>

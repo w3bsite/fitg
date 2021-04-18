@@ -1,7 +1,7 @@
 <template>
   <v-expand-transition>
     <v-container fluid>
-      <v-row>
+      <v-row dir="rtl">
         <v-col cols="12" sm="6">
           <!-- col-right -->
           <v-sheet>
@@ -78,7 +78,7 @@ export default {
   props: { game: { type: Object } },
   mounted() {
     console.log(this.game.number / 4);
-  }
+  },
 };
 </script>
 

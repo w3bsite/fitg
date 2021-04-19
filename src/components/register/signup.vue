@@ -2,8 +2,29 @@
   <v-container field>
     <v-row class="">
       <v-card class="mx-auto pa-5">
-        <span v-if="e">{{ e }}</span>
-        <span v-if="jwt">{{ jwt }}</span>
+        <v-alert
+          border="right"
+          colored-border
+          color="deep-purple accent-4"
+          elevation="2"
+          v-if="jwt"
+          class="text-right"
+        >
+          <span>با موفقیت انجام شد</span>
+        </v-alert>
+        <v-alert
+          border="right"
+          colored-border
+          color="red accent-4"
+          elevation="2"
+          v-if="e"
+          class="text-right"
+        >
+          <span>مشکلی وجود دارد</span>
+          <br />
+          <span>{{ e }}</span>
+        </v-alert>
+
         <v-form @submit.prevent="signup">
           <v-col>
             <v-text-field

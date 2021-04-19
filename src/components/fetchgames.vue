@@ -249,17 +249,22 @@ export default {
     range() {
       return this.$vuetify.breakpoint.xs == true ? false : true;
     },
+    //check to see if user is already signedin
     auth() {
       return this.$cookies.get("jwt")
         ? `Bearer ${this.$cookies.get("jwt")}`
         : " ";
     },
+    // calculating  the range of games to show in a page (ipage,ilimt)
+    // first argument in the range - start
     ipage() {
       return (this.page - 1) * this.limit;
     },
+    // secound argument in the range - end
     ilimit() {
       return this.ipage + this.limit;
     },
+    // number of games
     itotal() {
       if (this.$chimera.games.data) {
         return this.filteredgames.length;
@@ -267,15 +272,17 @@ export default {
         return null;
       }
     },
+    // number of pages
+    itotalpages() {
+      return this.itotal ? Math.ceil(this.itotal / this.limit) : null;
+    },
+    // correct  games range  for any page
     finalgames() {
       if (this.$chimera.games.data) {
         return this.filteredgames.slice(this.ipage, this.ilimit);
       } else {
         return null;
       }
-    },
-    itotalpages() {
-      return this.itotal ? Math.ceil(this.itotal / this.limit) : null;
     },
 
     filteredgames() {

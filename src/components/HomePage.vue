@@ -24,16 +24,18 @@ import fetchgames from "../components/fetchgames.vue";
 import topslider from "./HomePage/topslider.vue";
 export default {
   data() {
-    return { items: ["اکشن", "اول شخص", "شوتر", "ورزشی", "RPG"], genre: "ا" };
+    return { items: ["اکشن", "اول شخص", "شوتر", "ورزشی", "RPG"] };
   },
   components: { topslider, fetchgames },
   computed: {
+    //check to see if user is already signedin
     auth() {
       return this.$cookies.get("jwt")
         ? `Bearer ${this.$cookies.get("jwt")}`
         : "";
     },
   },
+  //fetchgames for gameslider component only
   chimera: {
     apig() {
       return {

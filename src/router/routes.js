@@ -26,6 +26,11 @@ const routes = [
     component: () => import("../views/About"),
   },
   {
+    path: "/cart",
+    name: "cartful",
+    component: () => import("../views/Cart"),
+  },
+  {
     path: "/games/Single/:id",
     name: "single",
     props: true,

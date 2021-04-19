@@ -7,8 +7,8 @@
             <v-range-slider
               v-model="value"
               :tick-labels="label"
-              :max="2023"
-              :min="2014"
+              :max="2021"
+              :min="2015"
             ></v-range-slider>
           </v-card-text>
         </v-card>
@@ -42,8 +42,8 @@
 export default {
   data() {
     return {
-      value: [2014, 2023],
-      label: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+      value: [2015, 2021],
+      label: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2021],
       genre: " ",
       yeara: 2019,
       yearb: 2021,
@@ -52,7 +52,7 @@ export default {
       er: null,
       items: ["اکشن", "اول شخص", "شوتر", "ورزشی", "RPG", " "],
       page: 1,
-      limit: "6"
+      limit: "6",
     };
   },
   chimera: {
@@ -63,11 +63,11 @@ export default {
           caption_contains: this.genre,
           _sort: this.sort + `:` + this.assend,
           _start: (this.page - 1) * this.limit,
-          _limit: this.limit
-        }
+          _limit: this.limit,
+        },
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

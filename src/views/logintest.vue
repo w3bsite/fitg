@@ -29,6 +29,7 @@ export default {
   created() {
     this.gt();
   },
+  //check to see if user is already signedin
   computed: {
     auth() {
       return this.$cookies.get("jwt")
@@ -44,6 +45,8 @@ export default {
   //     Authorization: `${this.auth}`,
   //   },
   // },
+
+  //fetch & return users if signedin other wise return the relevent error
   methods: {
     gt() {
       this.$axios
@@ -56,6 +59,7 @@ export default {
         .catch((e) => (this.er = e));
     },
   },
+  //keep an eye on the user for authentication state changes
   watch: {
     auth() {
       this.gt();

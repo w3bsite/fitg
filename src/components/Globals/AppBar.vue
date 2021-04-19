@@ -50,10 +50,11 @@
       <v-spacer />
       <v-menu
         v-model="crt"
-        :close-on-click="false"
+        :close-on-click="true"
         :close-on-content-click="false"
-        :nudge-width="1000"
+        :nudge-width="300"
         offset-y
+        offset-x
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn @click="notif = 0" v-bind="attrs" v-on="on" icon>
@@ -128,9 +129,9 @@ export default {
           to: "/Web",
         },
         {
-          icon: "mdi-chart-bubble",
+          icon: "mdi-clipboard-list",
           title: "Game news",
-          to: "/news",
+          to: "/Cart",
         },
 
         {
@@ -168,13 +169,18 @@ export default {
   //   }
   // },
   created() {
-    this.crt = true;
     EventBus.$on("cl", () => {
       this.notif++;
     });
   },
   mounted() {
-    this.crt = false;
+    setTimeout(() => {
+      this.crt = true;
+    }, 50);
+    setTimeout(() => {
+      this.crt = false;
+    }, 100);
+
     if (this.$vuetify.breakpoint.mobile == true) {
       this.drawer = false;
       this.miniVariant = true;

@@ -13,6 +13,7 @@
                 <v-img
                   :aspect-ratio="5 / 7"
                   :src="`../img/1/` + game.title + `.jpg`"
+                  :lazy-src="`../img/1/` + game.title + `.jpg`"
                 >
                 </v-img>
               </v-col>

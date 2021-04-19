@@ -245,6 +245,9 @@ export default {
       EventBus.change(e);
     },
   },
+  mounted() {
+    setInterval(() => this.games.reload(), 1000000);
+  },
   computed: {
     range() {
       return this.$vuetify.breakpoint.xs == true ? false : true;

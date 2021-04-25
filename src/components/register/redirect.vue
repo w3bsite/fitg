@@ -16,7 +16,7 @@ export default {
   },
   mounted() {
     setTimeout(() => this.token(), 100);
-    setTimeout(() => this.$router.push({ name: "Home" }), 300);
+    setTimeout(() => this.$router.push({ name: "Articles" }), 300);
   },
   methods: {
     token: function () {

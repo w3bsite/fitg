@@ -54,6 +54,7 @@
 
                     <v-alert color="indigo accent-4" outlined>Date</v-alert>
                     <v-range-slider
+                      id="rang"
                       @input="page = 1"
                       :vertical="range"
                       v-model="value"

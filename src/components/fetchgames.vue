@@ -316,5 +316,8 @@ export default {
 @media #{map-get($display-breakpoints, 'sm-and-up')}
   .v-slider
     height: 420px
+@media #{map-get($display-breakpoints, 'sm-and-down')}
+  .v-slider__tick-label
+    font-size: 10px
 </style>
 

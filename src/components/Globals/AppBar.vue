@@ -39,9 +39,19 @@
       <v-btn v-if="drawer" icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "left" : "right"}` }}</v-icon>
       </v-btn>
+
       <v-img
+        v-show="theme"
         class="mx-2"
-        :src="theme ? '@/assets/logodark.png' : '@/assets/logo.png'"
+        src="@/assets/logodark.png"
+        max-height="55"
+        max-width="55"
+        contain
+      ></v-img>
+      <v-img
+        v-show="!theme"
+        class="mx-2"
+        src="@/assets/logo.png"
         max-height="55"
         max-width="55"
         contain
@@ -153,6 +163,11 @@ export default {
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? true : false;
+    },
+    logo() {
+      return this.theme == true
+        ? "../assets/logodark.png"
+        : "../assets/logo.png";
     },
     mini() {
       if (this.$vuetify.breakpoint.mobile) {

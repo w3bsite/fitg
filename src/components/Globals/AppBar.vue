@@ -41,7 +41,7 @@
       </v-btn>
       <v-img
         class="mx-2"
-        src="@/assets/logo.png"
+        :src="theme ? '@/assets/logodark.png' : '@/assets/logo.png'"
         max-height="55"
         max-width="55"
         contain
@@ -151,6 +151,9 @@ export default {
     },
   },
   computed: {
+    theme() {
+      return this.$vuetify.theme.dark ? true : false;
+    },
     mini() {
       if (this.$vuetify.breakpoint.mobile) {
         return true;

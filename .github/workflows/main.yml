@@ -1,5 +1,7 @@
 name: 15-minute-cron
 on:
+  workflow_call:
+  
   schedule:
     - cron: '*/15 * * * *'
 jobs:

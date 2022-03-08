@@ -1,4 +1,4 @@
-name: 15-minute-cron
+name: 30-minute-cron
 on:
   workflow_dispatch:
   

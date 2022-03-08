@@ -13,12 +13,9 @@ on:
 jobs:
   cron:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
       - name: callfitg
       - id: step1
         run: |
           curl --request GET \
           --url 'https://fitg.vercel.app/#/' \
-          ::set-output name=test::

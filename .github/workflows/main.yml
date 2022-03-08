@@ -8,7 +8,11 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Call our app
+      - name: Call fitg
         run: |
           curl --request GET \
           --url 'https://fitg.vercel.app/#/' \
+      - name: Call meteor
+        run: |
+          curl --request GET \
+          --url 'http://w3bsite.meteorapp.com/' \

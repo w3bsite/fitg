@@ -11,7 +11,7 @@ jobs:
       - name: Call fitg
         run: |
           curl --request GET \
-          --url 'https://fitg.vercel.app/#/' \
+          --url 'https://corvirus.herokuapp.com/products' \
       - name: Call meteor
         run: |
           curl --request GET \

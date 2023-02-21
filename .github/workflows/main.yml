@@ -8,10 +8,6 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Call fitg
-        run: |
-          curl --request GET \
-          --url 'https://corvirus.herokuapp.com/products' \
       - name: Call meteor
         run: |
           curl --request GET \
